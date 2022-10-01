@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
-import 'package:krl_info/screens/login/components/app_title.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:krl_info/screens/main_screen/station_info.dart';
+
+import 'components/app_title_n_profile.dart';
 
 class FindRoute extends StatefulWidget {
   const FindRoute({super.key});
@@ -21,15 +23,7 @@ class _FindRouteState extends State<FindRoute> {
         child: Column(
           children: <Widget>[
             // App Title and Profile
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const <Widget>[
-                AppTitle(),
-                Image(
-                    image: AssetImage(
-                        'assets/images/carbon_user-avatar-filled.png')),
-              ],
-            ),
+            const AppTitleNProfile(),
             const SizedBox(height: 35),
             // Button Page
             Row(
@@ -38,7 +32,6 @@ class _FindRouteState extends State<FindRoute> {
                 Expanded(
                     flex: 1,
                     child: SizedBox(
-                      width: size.width,
                       height: 48,
                       child: ElevatedButton(
                           style: ButtonStyle(
@@ -76,7 +69,6 @@ class _FindRouteState extends State<FindRoute> {
                 Expanded(
                   flex: 1,
                   child: SizedBox(
-                    width: size.width,
                     height: 48,
                     child: ElevatedButton(
                         style: ButtonStyle(
@@ -91,7 +83,13 @@ class _FindRouteState extends State<FindRoute> {
                                   topRight: Radius.circular(4),
                                   bottomRight: Radius.circular(4)),
                             ))),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const StationInfo()),
+                          );
+                        },
                         child: const Text("Info Stasiun",
                             style: TextStyle(
                                 fontFamily: 'Inter',

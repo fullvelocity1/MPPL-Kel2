@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
-import 'package:krl_info/screens/home_screen/find_route.dart';
 import 'package:krl_info/screens/login/first_screen.dart';
 
 void main() {
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData().copyWith(
         colorScheme: const ColorScheme.light(primary: primColor),
       ),
-      home: const FindRoute(),
+      home: const FirstScreen(),
     );
   }
 }

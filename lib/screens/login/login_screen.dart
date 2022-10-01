@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
 import 'package:krl_info/screens/login/register_screen.dart';
+import 'package:krl_info/screens/main_screen/find_route.dart';
 import 'components/text_field_form.dart';
 
 class Login extends StatefulWidget {
@@ -63,7 +64,14 @@ class _LoginState extends State<Login> {
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(4),
                                     side: const BorderSide(color: primColor)))),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const FindRoute()), // coba doangg
+                          );
+                        },
                         child: const Text("Login Now",
                             style: TextStyle(
                                 fontFamily: 'Inter',
