@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
 import 'package:krl_info/model/station_model.dart';
-import 'package:krl_info/screens/main_screen/find_route.dart';
-import 'package:krl_info/screens/main_screen/station_info_detail.dart';
-import 'components/app_title_n_profile.dart';
+import 'package:krl_info/screens/cari_rute/components/app_title_n_profile.dart';
+import 'package:krl_info/screens/cari_rute/find_route.dart';
+import 'package:krl_info/screens/info_stasiun/station_info_detail.dart';
 
 class StationInfo extends StatefulWidget {
   const StationInfo({super.key});

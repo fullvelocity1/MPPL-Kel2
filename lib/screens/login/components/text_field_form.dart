@@ -18,7 +18,10 @@ class TextFieldForm extends StatelessWidget {
           alignment: Alignment.topLeft,
           child: Text(
             title,
-            style: const TextStyle(fontSize: 16),
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
         const SizedBox(

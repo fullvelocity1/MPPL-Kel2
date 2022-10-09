@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:krl_info/screens/main_screen/station_info.dart';
+import 'package:krl_info/screens/cari_rute/best_route.dart';
+import 'package:krl_info/screens/info_stasiun/station_info.dart';
 
 import 'components/app_title_n_profile.dart';
 
@@ -227,7 +228,13 @@ class _FindRouteState extends State<FindRoute> {
                           RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4),
                               side: const BorderSide(color: primColor)))),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const BestRoute()),
+                    );
+                  },
                   child: const Text("Cari Rute",
                       style: TextStyle(
                           fontFamily: 'Inter',
@@ -250,62 +257,71 @@ class _FindRouteState extends State<FindRoute> {
             ),
             const SizedBox(height: 13),
             // Recent search information
-            Container(
-              height: 80,
-              decoration: BoxDecoration(
-                border: Border.all(color: primColor),
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-              ),
-              child: Row(children: const <Widget>[
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 15),
-                    child: Image(
-                        height: 32,
-                        image: AssetImage('assets/images/carbon_train.png')),
-                  ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BestRoute()),
+                );
+              },
+              child: Container(
+                height: 80,
+                decoration: BoxDecoration(
+                  border: Border.all(color: primColor),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                 ),
-                Expanded(
-                    flex: 5,
+                child: Row(children: const <Widget>[
+                  Expanded(
+                    flex: 1,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text.rich(
-                        TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(text: 'Stasiun Aaaaaaaaa'), // dinamis
-                            TextSpan(text: ' - '), // statis
-                            TextSpan(text: 'Stasiun Baaaaaaaa'), // dinamis
-                            TextSpan(
-                                text: '\ndiakses tanggal ', // statis
-                                style: TextStyle(
-                                    height: 2,
-                                    fontSize: 12,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w100,
-                                    color: Color.fromRGBO(37, 37, 37, 0.7))),
-                            TextSpan(
-                                text: '1 Oktober 2022', // dinamis
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w100,
-                                    color: Color.fromRGBO(37, 37, 37, 0.7))),
-                          ],
+                      padding: EdgeInsets.only(left: 15),
+                      child: Image(
+                          height: 32,
+                          image: AssetImage('assets/images/carbon_train.png')),
+                    ),
+                  ),
+                  Expanded(
+                      flex: 5,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text.rich(
+                          TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(text: 'Stasiun Aaaaaaaaa'), // dinamis
+                              TextSpan(text: ' - '), // statis
+                              TextSpan(text: 'Stasiun Baaaaaaaa'), // dinamis
+                              TextSpan(
+                                  text: '\ndiakses tanggal ', // statis
+                                  style: TextStyle(
+                                      height: 2,
+                                      fontSize: 12,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w100,
+                                      color: Color.fromRGBO(37, 37, 37, 0.7))),
+                              TextSpan(
+                                  text: '1 Oktober 2022', // dinamis
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w100,
+                                      color: Color.fromRGBO(37, 37, 37, 0.7))),
+                            ],
+                          ),
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 16.0,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w700),
                         ),
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                            fontSize: 16.0,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700),
-                      ),
-                    )),
-                Expanded(
-                  flex: 1,
-                  child: Image(
-                      height: 24, image: AssetImage('assets/images/arrow.png')),
-                ),
-              ]),
+                      )),
+                  Expanded(
+                    flex: 1,
+                    child: Image(
+                        height: 24,
+                        image: AssetImage('assets/images/arrow.png')),
+                  ),
+                ]),
+              ),
             )
           ],
         ),

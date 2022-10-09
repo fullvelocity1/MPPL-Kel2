@@ -30,7 +30,7 @@ class StationInfoDetail extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: CircleAvatar(
-                    backgroundColor: Color.fromRGBO(0, 0, 0, 0.40),
+                    backgroundColor: Color.fromRGBO(0, 0, 0, 0.25),
                     child: IconButton(
                       onPressed: () {
                         Navigator.pop(context);

@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
+import 'package:krl_info/screens/login/components/text_field_form.dart';
 import 'package:krl_info/screens/login/login_screen.dart';
 
-import 'components/text_field_form.dart';
-
-class Register extends StatefulWidget {
-  const Register({super.key});
+class EditProfile extends StatefulWidget {
+  const EditProfile({super.key});
 
   @override
-  State<Register> createState() => _RegisterState();
+  State<EditProfile> createState() => _EditProfileState();
 }
 
-class _RegisterState extends State<Register> {
+class _EditProfileState extends State<EditProfile> {
   bool isHiddenPassword = true;
   bool isHiddenPasswordConf = true;
 
@@ -27,7 +26,7 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
               // Page Title
               const Text(
-                'Register Account',
+                'Edit Profile',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w700,
@@ -156,45 +155,13 @@ class _RegisterState extends State<Register> {
                                     borderRadius: BorderRadius.circular(4),
                                     side: const BorderSide(color: primColor)))),
                     onPressed: () {},
-                    child: const Text("Register Account",
+                    child: const Text("Save",
                         style: TextStyle(
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w700,
                             fontSize: 14))),
               ),
-              // Login Text Suggestion
-              Container(
-                padding: const EdgeInsets.only(top: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Text(
-                      "Don't have an account?",
-                      style: TextStyle(
-                        color: Color.fromRGBO(14, 14, 14, 0.54),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Login()),
-                        );
-                      },
-                      child: const Text(
-                        " Login Now",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+
               const Padding(
                 padding: EdgeInsets.only(top: 30),
                 child: Image(
