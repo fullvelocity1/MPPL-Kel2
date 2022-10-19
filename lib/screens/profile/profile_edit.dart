@@ -231,6 +231,8 @@ class _EditProfileState extends State<EditProfile> {
   Future openDialogDelAcc() => showDialog(
         context: context,
         builder: (context) => AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(25.0))),
           title: const Align(
             alignment: Alignment.center,
             child: Center(

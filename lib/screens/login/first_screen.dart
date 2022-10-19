@@ -37,6 +37,7 @@ class FirstScreen extends StatelessWidget {
                   LoginButton(),
                   SizedBox(height: 16),
                   RegistButton(),
+                  SizedBox(height: 30),
                 ]),
               ),
             ))

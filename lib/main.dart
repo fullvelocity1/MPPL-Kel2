@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
-import 'package:krl_info/screens/login/first_screen.dart';
+import 'package:krl_info/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData().copyWith(
         colorScheme: const ColorScheme.light(primary: primColor),
       ),
-      home: const FirstScreen(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -53,105 +53,112 @@ class _ProfileInfoState extends State<ProfileInfo> {
                 height: 60,
               ),
               // Text Field Nama Profile
-              const TextFieldForm(
-                title: 'Name',
-                hintTxt: 'Masukkan namamu',
+              const Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Name",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 13,
+              ),
+              Container(
+                height: 48,
+                width: size,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                    color: Color.fromRGBO(37, 37, 37, 0.04)),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Text(
+                      "Ini Nama User",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 17,
               ),
               // Text Field Email Profile
-              const TextFieldForm(
-                title: 'Email',
-                hintTxt: 'Masukkan alamat email',
+              const Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Email",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 13,
+              ),
+              Container(
+                height: 48,
+                width: size,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                    color: Color.fromRGBO(37, 37, 37, 0.04)),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Text(
+                      "iniemailuser@gmail.com",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 17,
               ),
               // Text Field Password Profile
-              Column(
-                children: <Widget>[
-                  // Title Text Field
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Password",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
+              const Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  "Password",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
                   ),
-                  const SizedBox(
-                    height: 13,
-                  ),
-                  // Text Field
-                  TextField(
-                    obscureText: isHiddenPassword,
-                    decoration: InputDecoration(
-                      suffixIcon: InkWell(
-                          onTap: _togglePasswordView,
-                          child: const Icon(Icons.visibility)),
-                      contentPadding:
-                          const EdgeInsets.only(left: 23, top: 15, bottom: 15),
-                      hintText: "Masukkan password",
-                      hintStyle: const TextStyle(fontSize: 16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromRGBO(37, 37, 37, 0.04),
-                    ),
-                  ),
-                ],
+                ),
               ),
               const SizedBox(
-                height: 17,
+                height: 13,
               ),
-              // Text Field Password Confirmation Profile
-              Column(
-                children: <Widget>[
-                  // Title Text Field
-                  const Align(
-                    alignment: Alignment.topLeft,
+              Container(
+                height: 48,
+                width: size,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                    color: Color.fromRGBO(37, 37, 37, 0.04)),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Text(
-                      "Password Confirmation",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                      "*********",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 13,
-                  ),
-                  // Text Field
-                  TextField(
-                    obscureText: isHiddenPasswordConf,
-                    decoration: InputDecoration(
-                      suffixIcon: InkWell(
-                          onTap: _togglePasswordConfView,
-                          child: const Icon(Icons.visibility)),
-                      contentPadding:
-                          const EdgeInsets.only(left: 23, top: 15, bottom: 15),
-                      hintText: "Masukkan konfirmasi password",
-                      hintStyle: const TextStyle(fontSize: 16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromRGBO(37, 37, 37, 0.04),
-                    ),
-                  ),
-                ],
+                ),
               ),
               const SizedBox(
                 height: 43,
@@ -250,6 +257,8 @@ class _ProfileInfoState extends State<ProfileInfo> {
   Future openDialog() => showDialog(
         context: context,
         builder: (context) => AlertDialog(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(25.0))),
           title: const Align(
             alignment: Alignment.center,
             child: Center(

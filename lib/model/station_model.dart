@@ -39,7 +39,7 @@ List<Station> allStation = [
   ),
   Station(
     stationName: "Stasiun Bogor",
-    address: "Jakarta Bogor",
+    address: "Bogor",
     facilities: ["Toilet", "Tempat tunggu", "Kantin"],
   ),
   Station(
