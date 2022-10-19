@@ -176,7 +176,7 @@ class _RegisterState extends State<Register> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    GestureDetector(
+                    InkWell(
                       onTap: () {
                         Navigator.push(
                           context,

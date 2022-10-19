@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:krl_info/screens/login/components/app_title.dart';
 import 'package:krl_info/screens/profile/profile_edit.dart';
+import 'package:krl_info/screens/profile/profile_info.dart';
 
 class AppTitleNProfile extends StatelessWidget {
   const AppTitleNProfile({
@@ -17,7 +18,7 @@ class AppTitleNProfile extends StatelessWidget {
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const EditProfile()),
+              MaterialPageRoute(builder: (context) => const ProfileInfo()),
             );
           },
           child: const Image(

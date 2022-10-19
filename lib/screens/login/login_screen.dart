@@ -92,7 +92,7 @@ class _LoginState extends State<Login> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
                             Navigator.push(
                               context,

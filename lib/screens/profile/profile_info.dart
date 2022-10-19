@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
 import 'package:krl_info/screens/login/components/text_field_form.dart';
 import 'package:krl_info/screens/login/first_screen.dart';
+import 'package:krl_info/screens/profile/profile_edit.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
+class ProfileInfo extends StatefulWidget {
+  const ProfileInfo({super.key});
 
   @override
-  State<EditProfile> createState() => _EditProfileState();
+  State<ProfileInfo> createState() => _ProfileInfoState();
 }
 
-class _EditProfileState extends State<EditProfile> {
+class _ProfileInfoState extends State<ProfileInfo> {
   bool isHiddenPassword = true;
   bool isHiddenPasswordConf = true;
 
@@ -24,6 +25,7 @@ class _EditProfileState extends State<EditProfile> {
           width: size,
           child: Column(
             children: <Widget>[
+              // Page Title
               Stack(
                 children: [
                   Align(
@@ -38,7 +40,7 @@ class _EditProfileState extends State<EditProfile> {
                   const Align(
                     alignment: Alignment.topCenter,
                     child: Text(
-                      'Edit Profile',
+                      'Profile',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
@@ -50,7 +52,7 @@ class _EditProfileState extends State<EditProfile> {
               const SizedBox(
                 height: 60,
               ),
-              // Text Field Nama Regist
+              // Text Field Nama Profile
               const TextFieldForm(
                 title: 'Name',
                 hintTxt: 'Masukkan namamu',
@@ -58,7 +60,7 @@ class _EditProfileState extends State<EditProfile> {
               const SizedBox(
                 height: 17,
               ),
-              // Text Field Email Regist
+              // Text Field Email Profile
               const TextFieldForm(
                 title: 'Email',
                 hintTxt: 'Masukkan alamat email',
@@ -66,7 +68,7 @@ class _EditProfileState extends State<EditProfile> {
               const SizedBox(
                 height: 17,
               ),
-              // Text Field Password Regist
+              // Text Field Password Profile
               Column(
                 children: <Widget>[
                   // Title Text Field
@@ -110,7 +112,7 @@ class _EditProfileState extends State<EditProfile> {
               const SizedBox(
                 height: 17,
               ),
-              // Text Field Password Confirmation Regist
+              // Text Field Password Confirmation Profile
               Column(
                 children: <Widget>[
                   // Title Text Field
@@ -154,11 +156,13 @@ class _EditProfileState extends State<EditProfile> {
               const SizedBox(
                 height: 43,
               ),
-              // Button Save
-              SizedBox(
-                width: size,
-                height: 48,
-                child: ElevatedButton(
+              // Edit Profile Button
+              Align(
+                alignment: Alignment.centerRight,
+                child: SizedBox(
+                  width: 115,
+                  height: 48,
+                  child: ElevatedButton(
                     style: ButtonStyle(
                         foregroundColor:
                             MaterialStateProperty.all<Color>(Colors.white),
@@ -169,53 +173,68 @@ class _EditProfileState extends State<EditProfile> {
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(4),
                                     side: const BorderSide(color: primColor)))),
-                    onPressed: () {},
-                    child: const Text("Save",
-                        style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.w700,
-                            fontSize: 14))),
-              ),
-              const SizedBox(height: 28),
-              // Button Hapus Akun
-              SizedBox(
-                width: size,
-                height: 48,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red.shade100),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    openDialogDelAcc();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 90.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const <Widget>[
-                        Image(
-                          height: 18,
-                          image: AssetImage('assets/images/delete.png'),
-                        ),
-                        Text("Hapus Akun",
-                            style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14)),
-                      ],
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EditProfile()),
+                      );
+                    },
+                    child: const Text(
+                      "Edit Profile",
+                      style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14),
                     ),
                   ),
                 ),
               ),
-
+              const SizedBox(height: 38),
+              // Logout Button
+              InkWell(
+                onTap: () {
+                  openDialog();
+                },
+                child: Container(
+                  height: 48,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black45),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Row(children: const <Widget>[
+                    Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 15),
+                        child: Image(
+                            height: 16,
+                            image: AssetImage('assets/images/logout.png')),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 5,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 15),
+                        child: Text(
+                          "Logout",
+                          style: TextStyle(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w700,
+                              fontSize: 14),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Image(
+                          height: 14,
+                          image: AssetImage('assets/images/arrow_black.png')),
+                    ),
+                  ]),
+                ),
+              ),
+              // App icon
               const Padding(
                 padding: EdgeInsets.only(top: 30),
                 child: Image(
@@ -228,14 +247,14 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Future openDialogDelAcc() => showDialog(
+  Future openDialog() => showDialog(
         context: context,
         builder: (context) => AlertDialog(
           title: const Align(
             alignment: Alignment.center,
             child: Center(
               child: Text(
-                "Konfirmasi Hapus Akun",
+                "Konfirmasi Logout",
                 style: TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 16,
@@ -245,7 +264,7 @@ class _EditProfileState extends State<EditProfile> {
             ),
           ),
           content: const Text(
-            "Apakah kamu yakin ingin menghapus akunmu?",
+            "Apakah kamu yakin ingin keluar dari aplikasi?",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontFamily: 'Inter',
