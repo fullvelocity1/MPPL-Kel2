@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1098689772135",
+    "project_id": "krl-info",
+    "storage_bucket": "krl-info.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098689772135:android:8b167fa1ea3e8367de72c2",
+        "android_client_info": {
+          "package_name": "com.example.krl_info"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098689772135-9oqov2n28kppc8l2n9ep18n4jn9r05lk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAliptLziXRFG8129CXApCTbx4r7w6MwLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098689772135-9oqov2n28kppc8l2n9ep18n4jn9r05lk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

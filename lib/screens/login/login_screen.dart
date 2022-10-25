@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
+import 'package:krl_info/screens/login/auth.dart';
 import 'package:krl_info/screens/login/register_screen.dart';
 import 'package:krl_info/screens/cari_rute/find_route.dart';
 import 'components/text_field_form.dart';
@@ -13,6 +17,17 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool isHiddenPassword = true;
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -37,9 +52,10 @@ class _LoginState extends State<Login> {
                     height: 60,
                   ),
                   // Text Field Email
-                  const TextFieldForm(
+                  TextFieldForm(
                     title: 'Email',
                     hintTxt: 'Masukkan alamat email',
+                    controller: emailController,
                   ),
                   const SizedBox(
                     height: 17,
@@ -65,12 +81,14 @@ class _LoginState extends State<Login> {
                                     borderRadius: BorderRadius.circular(4),
                                     side: const BorderSide(color: primColor)))),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const FindRoute()), // coba doangg
-                          );
+                          signIn();
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => Auth()), // coba doangg
+                          // );
+                          print(emailController.text.trim());
+                          print(passwordController.text.trim());
                         },
                         child: const Text("Login Now",
                             style: TextStyle(
@@ -143,6 +161,7 @@ class _LoginState extends State<Login> {
         ),
         // Text Field
         TextField(
+          controller: passwordController,
           obscureText: isHiddenPassword,
           decoration: InputDecoration(
             suffixIcon: InkWell(
@@ -164,6 +183,13 @@ class _LoginState extends State<Login> {
           ),
         ),
       ],
+    );
+  }
+
+  Future signIn() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailController.text.trim(),
+      password: passwordController.text.trim(),
     );
   }
 

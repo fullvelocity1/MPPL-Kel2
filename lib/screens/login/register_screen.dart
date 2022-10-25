@@ -14,6 +14,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   bool isHiddenPassword = true;
   bool isHiddenPasswordConf = true;
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,17 +38,19 @@ class _RegisterState extends State<Register> {
                 height: 60,
               ),
               // Text Field Nama Regist
-              const TextFieldForm(
+              TextFieldForm(
                 title: 'Name',
                 hintTxt: 'Masukkan namamu',
+                controller: controller,
               ),
               const SizedBox(
                 height: 17,
               ),
               // Text Field Email Regist
-              const TextFieldForm(
+              TextFieldForm(
                 title: 'Email',
                 hintTxt: 'Masukkan alamat email',
+                controller: controller,
               ),
               const SizedBox(
                 height: 17,

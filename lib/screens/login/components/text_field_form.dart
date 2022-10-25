@@ -5,9 +5,11 @@ class TextFieldForm extends StatelessWidget {
     Key? key,
     required this.title,
     required this.hintTxt,
+    required this.controller,
   }) : super(key: key);
 
   final String title, hintTxt;
+  final controller;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,7 @@ class TextFieldForm extends StatelessWidget {
         ),
         // Text Field
         TextField(
+          controller: controller,
           decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.only(left: 23, top: 15, bottom: 15),

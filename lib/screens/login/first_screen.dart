@@ -3,6 +3,7 @@ import 'package:krl_info/constants.dart';
 import 'package:krl_info/screens/login/register_screen.dart';
 import 'components/app_title.dart';
 import 'login_screen.dart';
+import 'auth.dart';
 
 class FirstScreen extends StatelessWidget {
   const FirstScreen({super.key});
@@ -102,7 +103,7 @@ class LoginButton extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const Login()),
+              MaterialPageRoute(builder: (context) => Auth()),
             );
           },
           child: const Text("Login Now",

@@ -13,6 +13,7 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   bool isHiddenPassword = true;
   bool isHiddenPasswordConf = true;
+  final controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,17 +52,19 @@ class _EditProfileState extends State<EditProfile> {
                 height: 60,
               ),
               // Text Field Nama Regist
-              const TextFieldForm(
+              TextFieldForm(
                 title: 'Name',
                 hintTxt: 'Masukkan namamu',
+                controller: controller,
               ),
               const SizedBox(
                 height: 17,
               ),
               // Text Field Email Regist
-              const TextFieldForm(
+              TextFieldForm(
                 title: 'Email',
                 hintTxt: 'Masukkan alamat email',
+                controller: controller,
               ),
               const SizedBox(
                 height: 17,

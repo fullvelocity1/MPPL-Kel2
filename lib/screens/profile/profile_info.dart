@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
 import 'package:krl_info/screens/login/components/text_field_form.dart';
@@ -299,6 +300,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                                     borderRadius: BorderRadius.circular(4),
                                     side: const BorderSide(color: primColor)))),
                     onPressed: () {
+                      FirebaseAuth.instance.signOut();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
