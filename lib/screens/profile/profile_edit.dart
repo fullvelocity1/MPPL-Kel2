@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:krl_info/constants.dart';
 import 'package:krl_info/screens/login/components/text_field_form.dart';
 import 'package:krl_info/screens/login/first_screen.dart';
@@ -14,6 +15,7 @@ class _EditProfileState extends State<EditProfile> {
   bool isHiddenPassword = true;
   bool isHiddenPasswordConf = true;
   final controller = TextEditingController();
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {

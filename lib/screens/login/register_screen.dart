@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
 import 'package:krl_info/screens/login/login_screen.dart';
@@ -14,7 +15,10 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   bool isHiddenPassword = true;
   bool isHiddenPasswordConf = true;
-  final controller = TextEditingController();
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final passwordConfController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,7 @@ class _RegisterState extends State<Register> {
               TextFieldForm(
                 title: 'Name',
                 hintTxt: 'Masukkan namamu',
-                controller: controller,
+                controller: nameController,
               ),
               const SizedBox(
                 height: 17,
@@ -50,7 +54,7 @@ class _RegisterState extends State<Register> {
               TextFieldForm(
                 title: 'Email',
                 hintTxt: 'Masukkan alamat email',
-                controller: controller,
+                controller: emailController,
               ),
               const SizedBox(
                 height: 17,
@@ -74,6 +78,7 @@ class _RegisterState extends State<Register> {
                   ),
                   // Text Field
                   TextField(
+                    controller: passwordController,
                     obscureText: isHiddenPassword,
                     decoration: InputDecoration(
                       suffixIcon: InkWell(
@@ -118,6 +123,7 @@ class _RegisterState extends State<Register> {
                   ),
                   // Text Field
                   TextField(
+                    controller: passwordConfController,
                     obscureText: isHiddenPasswordConf,
                     decoration: InputDecoration(
                       suffixIcon: InkWell(
@@ -158,7 +164,9 @@ class _RegisterState extends State<Register> {
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(4),
                                     side: const BorderSide(color: primColor)))),
-                    onPressed: () {},
+                    onPressed: () {
+                      signUp();
+                    },
                     child: const Text("Register Account",
                         style: TextStyle(
                             fontFamily: 'Inter',
@@ -208,6 +216,36 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
+  }
+
+  Future signUp() async {
+    print(emailController.text.trim());
+    print(passwordController.text.trim());
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim());
+    } on FirebaseAuthException catch (e) {
+      print(e);
+
+      var snackbar = SnackBar(
+        content: Text(e.message!),
+        backgroundColor: Colors.red,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      return;
+    }
+    var snackbar = SnackBar(
+      content: Text('Register Berhasil!'),
+      backgroundColor: Colors.green,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    Future.delayed(
+        const Duration(seconds: 1),
+        () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const Login()),
+            ));
   }
 
   void _togglePasswordView() {
