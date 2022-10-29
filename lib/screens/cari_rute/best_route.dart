@@ -3,7 +3,10 @@ import 'package:krl_info/constants.dart';
 import 'package:krl_info/screens/cari_rute/find_route.dart';
 
 class BestRoute extends StatefulWidget {
-  const BestRoute({super.key});
+  const BestRoute({super.key, required this.stTujuan, this.stKeberangkatan});
+
+  final String? stKeberangkatan;
+  final String? stTujuan;
 
   @override
   State<BestRoute> createState() => _BestRouteState();
@@ -12,7 +15,7 @@ class BestRoute extends StatefulWidget {
 class _BestRouteState extends State<BestRoute> {
   @override
   Widget build(BuildContext context) {
-    var index = 5;
+    var index = 3;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
@@ -41,8 +44,8 @@ class _BestRouteState extends State<BestRoute> {
             const SizedBox(height: 19),
             // Best Route information
             Container(
-              height: 180 + index * 50,
-              padding: EdgeInsets.symmetric(horizontal: 22, vertical: 20),
+              height: 250 + index * 50,
+              padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
               decoration: BoxDecoration(
                 border: Border.all(color: primColor),
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -50,8 +53,8 @@ class _BestRouteState extends State<BestRoute> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(children: const <Widget>[
-                    Padding(
+                  Row(children: <Widget>[
+                    const Padding(
                       padding: EdgeInsets.only(right: 15),
                       child: Image(
                           height: 32,
@@ -60,25 +63,50 @@ class _BestRouteState extends State<BestRoute> {
                     Expanded(
                       child: Text.rich(
                         TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(text: 'Stasiun A'), // dinamis
-                            TextSpan(text: ' - '), // statis
-                            TextSpan(text: 'Stasiun B'), // dinamis
-                          ],
-                        ),
+                            text:
+                                '${widget.stKeberangkatan} - ${widget.stTujuan}'),
                         textAlign: TextAlign.left,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16.0,
                             fontFamily: 'Inter',
                             fontWeight: FontWeight.w600),
                       ),
                     ),
                   ]),
-                  // const SizedBox(
-                  //   height: 15,
-                  // ),
+                  const SizedBox(height: 8),
+                  // Start point Station
+                  SizedBox(
+                    height: 50,
+                    child: Row(
+                      children: <Widget>[
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15),
+                          child: Image(
+                              height: 32,
+                              image:
+                                  AssetImage('assets/images/carbon_train.png')),
+                        ),
+                        Expanded(
+                          child: Text.rich(
+                            TextSpan(
+                                text:
+                                    '${widget.stKeberangkatan} (Start Point)'), //dinamis
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 14.0,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromRGBO(37, 37, 37, 0.75),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  // Stasiun penghubung
                   ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: index,
                     itemBuilder: (context, index) {
@@ -131,23 +159,76 @@ class _BestRouteState extends State<BestRoute> {
                       );
                     },
                   ),
+                  // Finish point Station
+                  SizedBox(
+                    height: 50,
+                    child: Row(
+                      children: <Widget>[
+                        const Padding(
+                          padding: EdgeInsets.only(right: 15),
+                          child: Image(
+                              height: 32,
+                              image:
+                                  AssetImage('assets/images/carbon_train.png')),
+                        ),
+                        Expanded(
+                          child: Text.rich(
+                            TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text:
+                                        '${widget.stTujuan} (Finish Point)'), // dinamis
+                                TextSpan(
+                                    text:
+                                        '\nHarga tiket ke ${widget.stTujuan} :  ', // statis
+                                    style: const TextStyle(
+                                        height: 1.5,
+                                        fontSize: 12,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w100,
+                                        color:
+                                            Color.fromRGBO(37, 37, 37, 0.7))),
+                                TextSpan(
+                                  text: 'Berapa Duit', // dinamis
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w100,
+                                    color: primColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            textAlign: TextAlign.left,
+                            style: const TextStyle(
+                              fontSize: 14.0,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500,
+                              color: Color.fromRGBO(37, 37, 37, 0.75),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   const SizedBox(
                     height: 19,
                   ),
+                  // Total tarif harga
                   Text.rich(
                     TextSpan(
                       children: <TextSpan>[
-                        TextSpan(
+                        const TextSpan(
                             text:
                                 'Total biaya tiket yang perlu dikeluarkan : '),
                         TextSpan(
                           text: 'Rp XXXXX',
-                          style: TextStyle(color: primColor),
+                          style: const TextStyle(color: primColor),
                         ),
                       ],
                     ),
                     textAlign: TextAlign.left,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 16.0,
                         fontFamily: 'Inter',
                         fontWeight: FontWeight.w600),

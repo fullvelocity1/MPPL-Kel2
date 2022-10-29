@@ -14,6 +14,9 @@ class FindRoute extends StatefulWidget {
 }
 
 class _FindRouteState extends State<FindRoute> {
+  String? stKeberangkatan;
+  String? stTujuan;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -160,7 +163,11 @@ class _FindRouteState extends State<FindRoute> {
                             ),
                           )),
                     ),
-                    onChanged: print,
+                    onChanged: (newvalue) {
+                      setState(() {
+                        stKeberangkatan = newvalue!; //updated
+                      });
+                    },
                   ),
                 ),
               ]),
@@ -207,7 +214,11 @@ class _FindRouteState extends State<FindRoute> {
                             ),
                           )),
                     ),
-                    onChanged: print,
+                    onChanged: (newvalue) {
+                      setState(() {
+                        stTujuan = newvalue!; //updated
+                      });
+                    },
                   ),
                 ),
               ]),
@@ -232,7 +243,10 @@ class _FindRouteState extends State<FindRoute> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const BestRoute()),
+                          builder: (context) => BestRoute(
+                                stKeberangkatan: stKeberangkatan,
+                                stTujuan: stTujuan,
+                              )),
                     );
                   },
                   child: const Text("Cari Rute",
@@ -261,7 +275,12 @@ class _FindRouteState extends State<FindRoute> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const BestRoute()),
+                  MaterialPageRoute(
+                    builder: (context) => BestRoute(
+                      stKeberangkatan: 'Stasiun Kebon Jeruk',
+                      stTujuan: 'Stasiun Bogor',
+                    ),
+                  ),
                 );
               },
               child: Container(
