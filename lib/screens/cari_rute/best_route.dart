@@ -12,7 +12,7 @@ class BestRoute extends StatefulWidget {
 class _BestRouteState extends State<BestRoute> {
   @override
   Widget build(BuildContext context) {
-    var index = 6;
+    var index = 5;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
@@ -41,7 +41,7 @@ class _BestRouteState extends State<BestRoute> {
             const SizedBox(height: 19),
             // Best Route information
             Container(
-              height: 154 + index * 50,
+              height: 180 + index * 50,
               padding: EdgeInsets.symmetric(horizontal: 22, vertical: 20),
               decoration: BoxDecoration(
                 border: Border.all(color: primColor),
@@ -74,9 +74,9 @@ class _BestRouteState extends State<BestRoute> {
                       ),
                     ),
                   ]),
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  // const SizedBox(
+                  //   height: 15,
+                  // ),
                   ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:krl_info/constants.dart';
-import 'package:krl_info/screens/login/components/text_field_form.dart';
 import 'package:krl_info/screens/login/first_screen.dart';
 
 class EditProfile extends StatefulWidget {
@@ -16,6 +15,18 @@ class _EditProfileState extends State<EditProfile> {
   bool isHiddenPasswordConf = true;
   final controller = TextEditingController();
   final user = FirebaseAuth.instance.currentUser;
+
+  TextEditingController _controllerName = TextEditingController();
+  TextEditingController _controllerEmail = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Default text nama
+    _controllerName.text = 'Nama sia';
+    // Default text email
+    _controllerEmail.text = 'Email sia';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,108 +65,172 @@ class _EditProfileState extends State<EditProfile> {
                 height: 60,
               ),
               // Text Field Nama Regist
-              TextFieldForm(
-                title: 'Name',
-                hintTxt: 'Masukkan namamu',
-                controller: controller,
+              Column(
+                children: <Widget>[
+                  // Title Text Field
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Name',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 13,
+                  ),
+                  // Text Field
+                  TextField(
+                    //controller: widget.controller,
+                    controller: _controllerName,
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(
+                            left: 23, top: 15, bottom: 15),
+                        hintText: 'Masukkan nama',
+                        hintStyle: const TextStyle(fontSize: 16),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: const Color.fromRGBO(37, 37, 37, 0.04)),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 17,
               ),
               // Text Field Email Regist
-              TextFieldForm(
-                title: 'Email',
-                hintTxt: 'Masukkan alamat email',
-                controller: controller,
+              Column(
+                children: <Widget>[
+                  // Title Text Field
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Email',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 13,
+                  ),
+                  // Text Field
+                  TextField(
+                    //controller: widget.controller,
+                    controller: _controllerEmail,
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(
+                            left: 23, top: 15, bottom: 15),
+                        hintText: 'Masukkan alamat email',
+                        hintStyle: const TextStyle(fontSize: 16),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
+                        ),
+                        filled: true,
+                        fillColor: const Color.fromRGBO(37, 37, 37, 0.04)),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 17,
               ),
               // Text Field Password Regist
-              Column(
-                children: <Widget>[
-                  // Title Text Field
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Password",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 13,
-                  ),
-                  // Text Field
-                  TextField(
-                    obscureText: isHiddenPassword,
-                    decoration: InputDecoration(
-                      suffixIcon: InkWell(
-                          onTap: _togglePasswordView,
-                          child: const Icon(Icons.visibility)),
-                      contentPadding:
-                          const EdgeInsets.only(left: 23, top: 15, bottom: 15),
-                      hintText: "Masukkan password",
-                      hintStyle: const TextStyle(fontSize: 16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromRGBO(37, 37, 37, 0.04),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 17,
-              ),
-              // Text Field Password Confirmation Regist
-              Column(
-                children: <Widget>[
-                  // Title Text Field
-                  const Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      "Password Confirmation",
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 13,
-                  ),
-                  // Text Field
-                  TextField(
-                    obscureText: isHiddenPasswordConf,
-                    decoration: InputDecoration(
-                      suffixIcon: InkWell(
-                          onTap: _togglePasswordConfView,
-                          child: const Icon(Icons.visibility)),
-                      contentPadding:
-                          const EdgeInsets.only(left: 23, top: 15, bottom: 15),
-                      hintText: "Masukkan konfirmasi password",
-                      hintStyle: const TextStyle(fontSize: 16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: const Color.fromRGBO(37, 37, 37, 0.04),
-                    ),
-                  ),
-                ],
-              ),
+              // Column(
+              //   children: <Widget>[
+              //     // Title Text Field
+              //     const Align(
+              //       alignment: Alignment.topLeft,
+              //       child: Text(
+              //         "Password",
+              //         style: TextStyle(
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w500,
+              //         ),
+              //       ),
+              //     ),
+              //     const SizedBox(
+              //       height: 13,
+              //     ),
+              //     // Text Field
+              //     TextField(
+              //       obscureText: isHiddenPassword,
+              //       decoration: InputDecoration(
+              //         suffixIcon: InkWell(
+              //             onTap: _togglePasswordView,
+              //             child: const Icon(Icons.visibility)),
+              //         contentPadding:
+              //             const EdgeInsets.only(left: 23, top: 15, bottom: 15),
+              //         hintText: "Masukkan password",
+              //         hintStyle: const TextStyle(fontSize: 16),
+              //         border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10.0),
+              //           borderSide: const BorderSide(
+              //             width: 0,
+              //             style: BorderStyle.none,
+              //           ),
+              //         ),
+              //         filled: true,
+              //         fillColor: const Color.fromRGBO(37, 37, 37, 0.04),
+              //       ),
+              //     ),
+              //   ],
+              // ),
+              // const SizedBox(
+              //   height: 17,
+              // ),
+              // // Text Field Password Confirmation Regist
+              // Column(
+              //   children: <Widget>[
+              //     // Title Text Field
+              //     const Align(
+              //       alignment: Alignment.topLeft,
+              //       child: Text(
+              //         "Password Confirmation",
+              //         style: TextStyle(
+              //           fontSize: 14,
+              //           fontWeight: FontWeight.w500,
+              //         ),
+              //       ),
+              //     ),
+              //     const SizedBox(
+              //       height: 13,
+              //     ),
+              //     // Text Field
+              //     TextField(
+              //       obscureText: isHiddenPasswordConf,
+              //       decoration: InputDecoration(
+              //         suffixIcon: InkWell(
+              //             onTap: _togglePasswordConfView,
+              //             child: const Icon(Icons.visibility)),
+              //         contentPadding:
+              //             const EdgeInsets.only(left: 23, top: 15, bottom: 15),
+              //         hintText: "Masukkan konfirmasi password",
+              //         hintStyle: const TextStyle(fontSize: 16),
+              //         border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10.0),
+              //           borderSide: const BorderSide(
+              //             width: 0,
+              //             style: BorderStyle.none,
+              //           ),
+              //         ),
+              //         filled: true,
+              //         fillColor: const Color.fromRGBO(37, 37, 37, 0.04),
+              //       ),
+              //     ),
+              //   ],
+              // ),
               const SizedBox(
                 height: 43,
               ),
