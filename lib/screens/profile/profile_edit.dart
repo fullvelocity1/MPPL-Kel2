@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:krl_info/constants.dart';
 import 'package:krl_info/screens/login/first_screen.dart';
+import 'package:krl_info/screens/profile/profile_info.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -23,9 +24,9 @@ class _EditProfileState extends State<EditProfile> {
   void initState() {
     super.initState();
     // Default text nama
-    _controllerName.text = 'Nama sia';
+    _controllerName.text = user!.displayName!;
     // Default text email
-    _controllerEmail.text = 'Email sia';
+    _controllerEmail.text = user!.email!;
   }
 
   @override
@@ -249,7 +250,36 @@ class _EditProfileState extends State<EditProfile> {
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(4),
                                     side: const BorderSide(color: primColor)))),
-                    onPressed: () {},
+                    onPressed: () {
+                      // user!.updateEmail(_controllerEmail.text.trim());
+                      try {
+                        FirebaseAuth.instance.currentUser!
+                            .updateEmail(_controllerEmail.text.trim());
+                        FirebaseAuth.instance.currentUser!
+                            .updateDisplayName(_controllerName.text.trim());
+                      } on FirebaseAuthException catch (e) {
+                        // print(e);
+
+                        var snackbar = SnackBar(
+                          content: Text(e.message!),
+                          backgroundColor: Colors.red,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                        return;
+                      }
+                      var snackbar = SnackBar(
+                        content: Text('Edit Profile Berhasil!'),
+                        backgroundColor: Colors.green,
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                      Future.delayed(
+                          const Duration(seconds: 1),
+                          () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const ProfileInfo()),
+                              ));
+                    },
                     child: const Text("Save",
                         style: TextStyle(
                             fontFamily: 'Inter',
@@ -353,11 +383,16 @@ class _EditProfileState extends State<EditProfile> {
                                     borderRadius: BorderRadius.circular(4),
                                     side: const BorderSide(color: primColor)))),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const FirstScreen()),
+                      FirebaseAuth.instance.currentUser!.delete();
+                      var snackbar = SnackBar(
+                        content: Text('Delete Account Berhasil!'),
+                        backgroundColor: Colors.green,
                       );
+                      Future.delayed(
+                          const Duration(seconds: 1),
+                          () => Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(builder: (c) => FirstScreen()),
+                              (route) => false));
                     },
                     child: const Text(
                       "Ya",

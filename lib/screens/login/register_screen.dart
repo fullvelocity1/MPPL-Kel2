@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
+import 'package:krl_info/screens/login/auth.dart';
 import 'package:krl_info/screens/login/login_screen.dart';
 
 import 'components/text_field_form.dart';
@@ -191,8 +192,7 @@ class _RegisterState extends State<Register> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Login()),
+                          MaterialPageRoute(builder: (context) => Auth()),
                         );
                       },
                       child: const Text(
@@ -219,14 +219,14 @@ class _RegisterState extends State<Register> {
   }
 
   Future signUp() async {
-    print(emailController.text.trim());
-    print(passwordController.text.trim());
+    // print(emailController.text.trim());
+    // print(passwordController.text.trim());
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim());
     } on FirebaseAuthException catch (e) {
-      print(e);
+      // print(e);
 
       var snackbar = SnackBar(
         content: Text(e.message!),
@@ -235,6 +235,14 @@ class _RegisterState extends State<Register> {
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
       return;
     }
+
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim());
+
+    var _user = FirebaseAuth.instance.currentUser!;
+    _user.updateDisplayName(nameController.text.trim());
+
     var snackbar = SnackBar(
       content: Text('Register Berhasil!'),
       backgroundColor: Colors.green,
@@ -244,7 +252,7 @@ class _RegisterState extends State<Register> {
         const Duration(seconds: 1),
         () => Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const Login()),
+              MaterialPageRoute(builder: (context) => Auth()),
             ));
   }
 

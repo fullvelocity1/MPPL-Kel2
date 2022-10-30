@@ -15,6 +15,19 @@ class ProfileInfo extends StatefulWidget {
 class _ProfileInfoState extends State<ProfileInfo> {
   bool isHiddenPassword = true;
   bool isHiddenPasswordConf = true;
+  final user = FirebaseAuth.instance.currentUser!;
+
+  TextEditingController _controllerName = TextEditingController();
+  TextEditingController _controllerEmail = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Default text nama
+    _controllerName.text = user.displayName!;
+    // Default text email
+    _controllerEmail.text = user.email!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +91,8 @@ class _ProfileInfoState extends State<ProfileInfo> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Text(
-                      "Ini Nama User",
+                      // "Ini Nama User",
+                      _controllerName.text,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
@@ -115,7 +129,8 @@ class _ProfileInfoState extends State<ProfileInfo> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Text(
-                      "iniemailuser@gmail.com",
+                      // "iniemailuser@gmail.com",
+                      _controllerEmail.text,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
