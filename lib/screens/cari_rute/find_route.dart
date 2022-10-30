@@ -17,6 +17,8 @@ class _FindRouteState extends State<FindRoute> {
   String? stKeberangkatan;
   String? stTujuan;
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -122,139 +124,186 @@ class _FindRouteState extends State<FindRoute> {
                   fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 43),
-            // Stasiun Keberangkatan Form
-            Container(
-              height: 55,
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(37, 37, 37, 0.1),
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-              ),
-              child: Row(children: <Widget>[
-                const Expanded(
-                    flex: 1,
-                    child: Image(
-                        height: 33,
-                        image:
-                            AssetImage('assets/images/icon_departureSt.png'))),
-                Expanded(
-                  flex: 7,
-                  child: DropdownSearch<String>(
-                    popupProps: const PopupProps.menu(
-                      showSelectedItems: true,
-                      showSearchBox: true,
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  // Stasiun Keberangkatan Form
+                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        height: 59,
+                        decoration: const BoxDecoration(
+                          color: Color.fromRGBO(37, 37, 37, 0.1),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              bottomLeft: Radius.circular(5)),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Image(
+                            height: 33,
+                            image: AssetImage(
+                                'assets/images/icon_departureSt.png'),
+                          ),
+                        ),
+                      ),
                     ),
-                    items: [
-                      "Stasiun A",
-                      "Stasiun B",
-                      "Stasiun C",
-                      "Stasiun D",
-                      "Stasiun E",
-                      "Stasiun F"
-                    ],
-                    dropdownDecoratorProps: const DropDownDecoratorProps(
-                      dropdownSearchDecoration: InputDecoration(
-                          hintText: "Masukkan stasiun keberangkatan",
-                          hintStyle:
-                              TextStyle(fontFamily: 'Inter', fontSize: 14),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 0,
-                              style: BorderStyle.none,
-                            ),
-                          )),
+                    Expanded(
+                      flex: 7,
+                      child: DropdownSearch<String>(
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Silahkan masukkan stasiun keberangkatan';
+                          }
+                          return null;
+                        },
+                        popupProps: const PopupProps.menu(
+                          showSelectedItems: true,
+                          showSearchBox: true,
+                        ),
+                        items: [
+                          "Stasiun A",
+                          "Stasiun B",
+                          "Stasiun C",
+                          "Stasiun D",
+                          "Stasiun E",
+                          "Stasiun F"
+                        ],
+                        dropdownDecoratorProps: const DropDownDecoratorProps(
+                          dropdownSearchDecoration: InputDecoration(
+                              filled: true,
+                              fillColor: Color.fromRGBO(37, 37, 37, 0.1),
+                              hintText: "Masukkan stasiun keberangkatan",
+                              hintStyle:
+                                  TextStyle(fontFamily: 'Inter', fontSize: 14),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(5),
+                                    bottomRight: Radius.circular(5)),
+                                borderSide: BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              )),
+                        ),
+                        onChanged: (newvalue) {
+                          setState(() {
+                            stKeberangkatan = newvalue!; //updated
+                          });
+                        },
+                      ),
                     ),
-                    onChanged: (newvalue) {
-                      setState(() {
-                        stKeberangkatan = newvalue!; //updated
-                      });
-                    },
+                  ]),
+                  const SizedBox(height: 11),
+                  // Stasiun Tujuan Form
+                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        height: 59,
+                        decoration: const BoxDecoration(
+                          color: Color.fromRGBO(37, 37, 37, 0.1),
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5),
+                              bottomLeft: Radius.circular(5)),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(11.0),
+                          child: Image(
+                            height: 33,
+                            image: AssetImage(
+                                'assets/images/icon_destinationSt.png'),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 7,
+                      child: DropdownSearch<String>(
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Silahkan masukkan stasiun tujuan';
+                          }
+                          return null;
+                        },
+                        popupProps: const PopupProps.menu(
+                          showSelectedItems: true,
+                          showSearchBox: true,
+                        ),
+                        items: [
+                          "Stasiun A",
+                          "Stasiun B",
+                          "Stasiun C",
+                          "Stasiun D",
+                          "Stasiun E",
+                          "Stasiun F"
+                        ],
+                        dropdownDecoratorProps: const DropDownDecoratorProps(
+                          dropdownSearchDecoration: InputDecoration(
+                              filled: true,
+                              fillColor: Color.fromRGBO(37, 37, 37, 0.1),
+                              hintText: "Masukkan stasiun tujuan",
+                              hintStyle:
+                                  TextStyle(fontFamily: 'Inter', fontSize: 14),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(5),
+                                    bottomRight: Radius.circular(5)),
+                                borderSide: BorderSide(
+                                  width: 0,
+                                  style: BorderStyle.none,
+                                ),
+                              )),
+                        ),
+                        onChanged: (newvalue) {
+                          setState(() {
+                            stTujuan = newvalue!; //updated
+                          });
+                        },
+                      ),
+                    ),
+                  ]),
+                  const SizedBox(height: 35),
+                  // "Cari Rute" Button
+                  SizedBox(
+                    width: size.width,
+                    height: 48,
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(primColor),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4),
+                                    side: const BorderSide(color: primColor)))),
+                        onPressed: () {
+                          if (_formKey.currentState != null &&
+                              _formKey.currentState!.validate()) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BestRoute(
+                                        stKeberangkatan: stKeberangkatan,
+                                        stTujuan: stTujuan,
+                                      )),
+                            );
+                          }
+                        },
+                        child: const Text("Cari Rute",
+                            style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14))),
                   ),
-                ),
-              ]),
-            ),
-            const SizedBox(height: 11),
-            // Stasiun Tujuan Form
-            Container(
-              height: 55,
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(37, 37, 37, 0.1),
-                borderRadius: BorderRadius.all(Radius.circular(4)),
+                ],
               ),
-              child: Row(children: <Widget>[
-                const Expanded(
-                    flex: 1,
-                    child: Image(
-                        height: 33,
-                        image: AssetImage(
-                            'assets/images/icon_destinationSt.png'))),
-                Expanded(
-                  flex: 7,
-                  child: DropdownSearch<String>(
-                    popupProps: const PopupProps.menu(
-                      showSelectedItems: true,
-                      showSearchBox: true,
-                    ),
-                    items: [
-                      "Stasiun A",
-                      "Stasiun B",
-                      "Stasiun C",
-                      "Stasiun D",
-                      "Stasiun E",
-                      "Stasiun F"
-                    ],
-                    dropdownDecoratorProps: const DropDownDecoratorProps(
-                      dropdownSearchDecoration: InputDecoration(
-                          hintText: "Masukkan stasiun tujuan",
-                          hintStyle:
-                              TextStyle(fontFamily: 'Inter', fontSize: 14),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 0,
-                              style: BorderStyle.none,
-                            ),
-                          )),
-                    ),
-                    onChanged: (newvalue) {
-                      setState(() {
-                        stTujuan = newvalue!; //updated
-                      });
-                    },
-                  ),
-                ),
-              ]),
             ),
 
-            const SizedBox(height: 35),
-            // "Cari Rute" Button
-            SizedBox(
-              width: size.width,
-              height: 48,
-              child: ElevatedButton(
-                  style: ButtonStyle(
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(primColor),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              side: const BorderSide(color: primColor)))),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => BestRoute(
-                                stKeberangkatan: stKeberangkatan,
-                                stTujuan: stTujuan,
-                              )),
-                    );
-                  },
-                  child: const Text("Cari Rute",
-                      style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 14))),
-            ),
             const SizedBox(
               height: 43,
             ),

@@ -15,7 +15,7 @@ class BestRoute extends StatefulWidget {
 class _BestRouteState extends State<BestRoute> {
   @override
   Widget build(BuildContext context) {
-    var index = 3;
+    var index = 7;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
@@ -53,6 +53,7 @@ class _BestRouteState extends State<BestRoute> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Station Route
                   Row(children: <Widget>[
                     const Padding(
                       padding: EdgeInsets.only(right: 15),
@@ -79,12 +80,31 @@ class _BestRouteState extends State<BestRoute> {
                     height: 50,
                     child: Row(
                       children: <Widget>[
-                        const Padding(
-                          padding: EdgeInsets.only(right: 15),
-                          child: Image(
-                              height: 32,
-                              image:
-                                  AssetImage('assets/images/carbon_train.png')),
+                        // step icon
+                        SizedBox(
+                          width: 40,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Container(
+                                  height: 25,
+                                  width: 4,
+                                  color: primColor,
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Container(
+                                  width: 20,
+                                  decoration: const BoxDecoration(
+                                    color: primColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         Expanded(
                           child: Text.rich(
@@ -112,13 +132,26 @@ class _BestRouteState extends State<BestRoute> {
                     itemBuilder: (context, index) {
                       return SizedBox(
                         height: 50,
-                        child: Row(children: const <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(right: 15),
-                            child: Image(
-                                height: 32,
-                                image: AssetImage(
-                                    'assets/images/carbon_train.png')),
+                        child: Row(children: <Widget>[
+                          SizedBox(
+                            width: 40,
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Container(
+                                  height: 50,
+                                  width: 4,
+                                  color: primColor,
+                                ),
+                                Container(
+                                  width: 20,
+                                  decoration: const BoxDecoration(
+                                    color: primColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           Expanded(
                             child: Text.rich(
@@ -164,12 +197,30 @@ class _BestRouteState extends State<BestRoute> {
                     height: 50,
                     child: Row(
                       children: <Widget>[
-                        const Padding(
-                          padding: EdgeInsets.only(right: 15),
-                          child: Image(
-                              height: 32,
-                              image:
-                                  AssetImage('assets/images/carbon_train.png')),
+                        SizedBox(
+                          width: 40,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.topCenter,
+                                child: Container(
+                                  height: 25,
+                                  width: 4,
+                                  color: primColor,
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Container(
+                                  width: 20,
+                                  decoration: const BoxDecoration(
+                                    color: primColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         Expanded(
                           child: Text.rich(

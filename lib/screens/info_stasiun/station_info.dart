@@ -116,7 +116,7 @@ class _StationInfoState extends State<StationInfo> {
                   ),
                 ),
                 filled: true,
-                fillColor: Color.fromRGBO(37, 37, 37, 0.04),
+                fillColor: const Color.fromRGBO(37, 37, 37, 0.04),
                 suffixIcon: IconTheme(
                   data: IconThemeData(color: Colors.grey[600]),
                   child: const Icon(
@@ -128,7 +128,7 @@ class _StationInfoState extends State<StationInfo> {
             const SizedBox(height: 3),
             // Station List
             ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: stations.length,
               itemBuilder: (context, index) {
