@@ -19,6 +19,8 @@ class Station {
   Station.fromSnapshot(snapshot)
       : stationName = snapshot.data()['stationName'],
         address = snapshot.data()['address'];
+
+  String toName() => stationName;
 }
 
 List<Station> allStation = [

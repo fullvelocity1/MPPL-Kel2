@@ -230,7 +230,7 @@ class _StationInfoState extends State<StationInfo> {
   }
 
   void searchStation(String query) {
-    final suggestions = allStation.where((station) {
+    final suggestions = stations.where((station) {
       final stationName = station.stationName.toLowerCase();
       final input = query.toLowerCase();
 
