@@ -9,6 +9,16 @@ class Station {
     required this.address,
     this.facilities,
   });
+
+  Map<String, dynamic> toJson() => {
+        'stationName': stationName,
+        'address': address,
+        'facilites': facilities,
+      };
+
+  Station.fromSnapshot(snapshot)
+      : stationName = snapshot.data()['stationName'],
+        address = snapshot.data()['address'];
 }
 
 List<Station> allStation = [

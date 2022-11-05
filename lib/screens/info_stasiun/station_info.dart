@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
 import 'package:krl_info/model/station_model.dart';
@@ -14,6 +15,14 @@ class StationInfo extends StatefulWidget {
 
 class _StationInfoState extends State<StationInfo> {
   List<Station> stations = allStation;
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    getStationsList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -207,6 +216,22 @@ class _StationInfoState extends State<StationInfo> {
         ),
       ),
     );
+  }
+
+  Future getStationsList() async {
+    var data =
+        await FirebaseFirestore.instance.collection('stasiun').doc('dpkbr');
+
+    final data1 = <String, dynamic>{
+      'stationName': 'Stasiun Depok Baru',
+      'address': 'Depokk'
+    };
+
+    data.set(data1);
+
+    print(stations);
+    print(data.id);
+    print(data.toString());
   }
 
   void searchStation(String query) {
