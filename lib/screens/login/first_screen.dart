@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
 import 'package:krl_info/screens/login/register_screen.dart';

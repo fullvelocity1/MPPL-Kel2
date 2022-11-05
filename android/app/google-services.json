@@ -1,20 +1,21 @@
 {
   "project_info": {
-    "project_number": "1098689772135",
-    "project_id": "krl-info",
-    "storage_bucket": "krl-info.appspot.com"
+    "project_number": "708127359177",
+    "firebase_url": "https://krl-in-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "krl-in",
+    "storage_bucket": "krl-in.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1098689772135:android:8b167fa1ea3e8367de72c2",
+        "mobilesdk_app_id": "1:708127359177:android:5826d802cf398a143c8d18",
         "android_client_info": {
           "package_name": "com.example.krl_info"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1098689772135-9oqov2n28kppc8l2n9ep18n4jn9r05lk.apps.googleusercontent.com",
+          "client_id": "708127359177-jms1cfu29ideghelh823tuoln8tip6d3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +28,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1098689772135-9oqov2n28kppc8l2n9ep18n4jn9r05lk.apps.googleusercontent.com",
+              "client_id": "708127359177-jms1cfu29ideghelh823tuoln8tip6d3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

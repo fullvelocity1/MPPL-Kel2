@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
 import 'package:krl_info/model/station_model.dart';
@@ -219,19 +220,13 @@ class _StationInfoState extends State<StationInfo> {
   }
 
   Future getStationsList() async {
-    var data =
-        await FirebaseFirestore.instance.collection('stasiun').doc('dpkbr');
-
-    final data1 = <String, dynamic>{
-      'stationName': 'Stasiun Depok Baru',
-      'address': 'Depokk'
-    };
-
-    data.set(data1);
-
-    print(stations);
-    print(data.id);
-    print(data.toString());
+    final ref = await FirebaseFirestore.instance.collection("stasiun").get();
+    List<Station> list_st =
+        List.from(ref.docs.map((doc) => Station.fromSnapshot(doc)));
+    print(list_st);
+    setState(() {
+      stations = list_st;
+    });
   }
 
   void searchStation(String query) {

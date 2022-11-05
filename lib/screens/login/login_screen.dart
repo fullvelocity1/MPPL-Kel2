@@ -87,8 +87,8 @@ class _LoginState extends State<Login> {
                           //   MaterialPageRoute(
                           //       builder: (context) => Auth()), // coba doangg
                           // );
-                          print(emailController.text.trim());
-                          print(passwordController.text.trim());
+                          // print(emailController.text.trim());
+                          // print(passwordController.text.trim());
                         },
                         child: const Text("Login Now",
                             style: TextStyle(
