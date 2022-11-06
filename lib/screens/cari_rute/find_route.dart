@@ -139,18 +139,41 @@ class _FindRouteState extends State<FindRoute> {
               child: Column(
                 children: [
                   // Stasiun Keberangkatan Form
-                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        height: 59,
-                        decoration: const BoxDecoration(
-                          color: Color.fromRGBO(37, 37, 37, 0.1),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              bottomLeft: Radius.circular(5)),
+                  DropdownSearch<String>(
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Silahkan masukkan stasiun keberangkatan';
+                      }
+                      return null;
+                    },
+                    popupProps: const PopupProps.menu(
+                      showSelectedItems: true,
+                      showSearchBox: true,
+                    ),
+                    // items: [
+                    //   "Stasiun A",
+                    //   "Stasiun B",
+                    //   "Stasiun C",
+                    //   "Stasiun D",
+                    //   "Stasiun E",
+                    //   "Stasiun F"
+                    // ],
+                    items: stationsToStName(),
+                    dropdownDecoratorProps: DropDownDecoratorProps(
+                      dropdownSearchDecoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color.fromRGBO(37, 37, 37, 0.1),
+                        hintText: "Stasiun keberangkatan",
+                        hintStyle:
+                            const TextStyle(fontFamily: 'Inter', fontSize: 14),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: const BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
                         ),
-                        child: const Padding(
+                        prefixIcon: const Padding(
                           padding: EdgeInsets.all(8.0),
                           child: Image(
                             height: 33,
@@ -160,67 +183,50 @@ class _FindRouteState extends State<FindRoute> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 7,
-                      child: DropdownSearch<String>(
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Silahkan masukkan stasiun keberangkatan';
-                          }
-                          return null;
-                        },
-                        popupProps: const PopupProps.menu(
-                          showSelectedItems: true,
-                          showSearchBox: true,
-                        ),
-                        // items: [
-                        //   "Stasiun A",
-                        //   "Stasiun B",
-                        //   "Stasiun C",
-                        //   "Stasiun D",
-                        //   "Stasiun E",
-                        //   "Stasiun F"
-                        // ],
-                        items: stationsToStName(),
-                        dropdownDecoratorProps: const DropDownDecoratorProps(
-                          dropdownSearchDecoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color.fromRGBO(37, 37, 37, 0.1),
-                              hintText: "Masukkan stasiun keberangkatan",
-                              hintStyle:
-                                  TextStyle(fontFamily: 'Inter', fontSize: 14),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(5),
-                                    bottomRight: Radius.circular(5)),
-                                borderSide: BorderSide(
-                                  width: 0,
-                                  style: BorderStyle.none,
-                                ),
-                              )),
-                        ),
-                        onChanged: (newvalue) {
-                          setState(() {
-                            stKeberangkatan = newvalue!; //updated
-                          });
-                        },
-                      ),
-                    ),
-                  ]),
+                    onChanged: (newvalue) {
+                      setState(() {
+                        stKeberangkatan = newvalue!; //updated
+                      });
+                    },
+                  ),
                   const SizedBox(height: 11),
                   // Stasiun Tujuan Form
-                  Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        height: 59,
-                        decoration: const BoxDecoration(
-                          color: Color.fromRGBO(37, 37, 37, 0.1),
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(5),
-                              bottomLeft: Radius.circular(5)),
+                  DropdownSearch<String>(
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Silahkan masukkan stasiun tujuan';
+                      }
+                      return null;
+                    },
+                    popupProps: const PopupProps.menu(
+                      showSelectedItems: true,
+                      showSearchBox: true,
+                    ),
+                    // items: [
+                    //   "Stasiun A",
+                    //   "Stasiun B",
+                    //   "Stasiun C",
+                    //   "Stasiun D",
+                    //   "Stasiun E",
+                    //   "Stasiun F"
+                    // ],
+                    items: stationsToStName(),
+                    dropdownDecoratorProps: DropDownDecoratorProps(
+                      dropdownSearchDecoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color.fromRGBO(37, 37, 37, 0.1),
+                        hintText: "Stasiun tujuan",
+                        hintStyle:
+                            const TextStyle(fontFamily: 'Inter', fontSize: 14),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: const BorderSide(
+                            width: 0,
+                            style: BorderStyle.none,
+                          ),
                         ),
-                        child: const Padding(
+                        hintMaxLines: 2,
+                        prefixIcon: const Padding(
                           padding: EdgeInsets.all(11.0),
                           child: Image(
                             height: 33,
@@ -230,53 +236,12 @@ class _FindRouteState extends State<FindRoute> {
                         ),
                       ),
                     ),
-                    Expanded(
-                      flex: 7,
-                      child: DropdownSearch<String>(
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Silahkan masukkan stasiun tujuan';
-                          }
-                          return null;
-                        },
-                        popupProps: const PopupProps.menu(
-                          showSelectedItems: true,
-                          showSearchBox: true,
-                        ),
-                        // items: [
-                        //   "Stasiun A",
-                        //   "Stasiun B",
-                        //   "Stasiun C",
-                        //   "Stasiun D",
-                        //   "Stasiun E",
-                        //   "Stasiun F"
-                        // ],
-                        items: stationsToStName(),
-                        dropdownDecoratorProps: const DropDownDecoratorProps(
-                          dropdownSearchDecoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color.fromRGBO(37, 37, 37, 0.1),
-                              hintText: "Masukkan stasiun tujuan",
-                              hintStyle:
-                                  TextStyle(fontFamily: 'Inter', fontSize: 14),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(5),
-                                    bottomRight: Radius.circular(5)),
-                                borderSide: BorderSide(
-                                  width: 0,
-                                  style: BorderStyle.none,
-                                ),
-                              )),
-                        ),
-                        onChanged: (newvalue) {
-                          setState(() {
-                            stTujuan = newvalue!; //updated
-                          });
-                        },
-                      ),
-                    ),
-                  ]),
+                    onChanged: (newvalue) {
+                      setState(() {
+                        stTujuan = newvalue!; //updated
+                      });
+                    },
+                  ),
                   const SizedBox(height: 35),
                   // "Cari Rute" Button
                   SizedBox(
