@@ -1,14 +1,17 @@
 // Dummy database
 class Station {
+  String? id;
   String stationName;
   String address;
   List<String>? facilities;
+  Map<String, dynamic>? connections;
 
-  Station({
-    required this.stationName,
-    required this.address,
-    this.facilities,
-  });
+  Station(
+      {required this.stationName,
+      required this.address,
+      this.facilities,
+      this.connections,
+      this.id});
 
   Map<String, dynamic> toJson() => {
         'stationName': stationName,
@@ -18,9 +21,14 @@ class Station {
 
   Station.fromSnapshot(snapshot)
       : stationName = snapshot.data()['stationName'],
-        address = snapshot.data()['address'];
+        address = snapshot.data()['address'],
+        id = snapshot.id,
+        connections = snapshot.data()['connections'];
 
-  String toName() => stationName;
+  Station.fromSnapshotWithCons(snapshot)
+      : stationName = snapshot.data()['stationName'],
+        address = snapshot.data()['address'],
+        connections = snapshot.data()['connections'];
 }
 
 List<Station> allStation = [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:krl_info/helper/routefinder.dart';
 import 'package:krl_info/screens/cari_rute/best_route.dart';
 import 'package:krl_info/screens/info_stasiun/station_info.dart';
 import 'package:krl_info/model/station_model.dart';
@@ -62,7 +63,10 @@ class _FindRouteState extends State<FindRoute> {
                                           topLeft: Radius.circular(4),
                                           bottomLeft: Radius.circular(4)),
                                       side: BorderSide(color: primColor)))),
-                          onPressed: () {},
+                          onPressed: () {
+                            var finder = RouteFinder();
+                            finder.stationsToGraph();
+                          },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 25),
                             child: Row(
