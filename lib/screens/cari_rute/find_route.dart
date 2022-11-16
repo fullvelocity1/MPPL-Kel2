@@ -65,7 +65,8 @@ class _FindRouteState extends State<FindRoute> {
                                       side: BorderSide(color: primColor)))),
                           onPressed: () {
                             var finder = RouteFinder();
-                            finder.stationsToGraph();
+                            // finder.stationsToGraph();
+                            finder.findRoute("kmpngbndn", "mnggr");
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 25),
