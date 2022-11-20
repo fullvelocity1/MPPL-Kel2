@@ -1,6 +1,6 @@
 // Dummy database
 class Station {
-  String? id;
+  String id;
   String stationName;
   String address;
   List<String>? facilities;
@@ -11,7 +11,7 @@ class Station {
       required this.address,
       this.facilities,
       this.connections,
-      this.id});
+      required this.id});
 
   Map<String, dynamic> toJson() => {
         'stationName': stationName,
@@ -26,45 +26,45 @@ class Station {
         connections = snapshot.data()['connections'];
 }
 
-List<Station> allStation = [
-  Station(
-    stationName: "Stasiun Jakarta Kota",
-    address: "Jakarta Utara",
-    facilities: ["Toilet", "Tempat tunggu", "Kantin"],
-  ),
-  Station(
-    stationName: "Stasiun Kali Deres",
-    address: "Jakarta Barat",
-    facilities: ["Toilet", "Tempat tunggu", "Kantin"],
-  ),
-  Station(
-    stationName: "Stasiun Tebet",
-    address: "Jakarta Timur",
-    facilities: ["Toilet", "Tempat tunggu", "Kantin"],
-  ),
-  Station(
-    stationName: "Stasiun Lenteng Agung",
-    address: "Jakarta Selatan",
-    facilities: ["Toilet", "Tempat tunggu", "Kantin"],
-  ),
-  Station(
-    stationName: "Stasiun Depok Baru",
-    address: "Depok",
-    facilities: ["Toilet", "Tempat tunggu", "Kantin"],
-  ),
-  Station(
-    stationName: "Stasiun Bogor",
-    address: "Bogor",
-    facilities: ["Toilet", "Tempat tunggu", "Kantin"],
-  ),
-  Station(
-    stationName: "Stasiun Citayem",
-    address: "Depok",
-    facilities: ["Toilet", "Tempat tunggu", "Kantin"],
-  ),
-  Station(
-    stationName: "Stasiun Universitas Indonesia",
-    address: "Depok",
-    facilities: ["Toilet", "Tempat tunggu", "Kantin"],
-  ),
-];
+// List<Station> allStation = [
+//   Station(
+//     stationName: "Stasiun Jakarta Kota",
+//     address: "Jakarta Utara",
+//     facilities: ["Toilet", "Tempat tunggu", "Kantin"],
+//   ),
+//   Station(
+//     stationName: "Stasiun Kali Deres",
+//     address: "Jakarta Barat",
+//     facilities: ["Toilet", "Tempat tunggu", "Kantin"],
+//   ),
+//   Station(
+//     stationName: "Stasiun Tebet",
+//     address: "Jakarta Timur",
+//     facilities: ["Toilet", "Tempat tunggu", "Kantin"],
+//   ),
+//   Station(
+//     stationName: "Stasiun Lenteng Agung",
+//     address: "Jakarta Selatan",
+//     facilities: ["Toilet", "Tempat tunggu", "Kantin"],
+//   ),
+//   Station(
+//     stationName: "Stasiun Depok Baru",
+//     address: "Depok",
+//     facilities: ["Toilet", "Tempat tunggu", "Kantin"],
+//   ),
+//   Station(
+//     stationName: "Stasiun Bogor",
+//     address: "Bogor",
+//     facilities: ["Toilet", "Tempat tunggu", "Kantin"],
+//   ),
+//   Station(
+//     stationName: "Stasiun Citayem",
+//     address: "Depok",
+//     facilities: ["Toilet", "Tempat tunggu", "Kantin"],
+//   ),
+//   Station(
+//     stationName: "Stasiun Universitas Indonesia",
+//     address: "Depok",
+//     facilities: ["Toilet", "Tempat tunggu", "Kantin"],
+//   ),
+// ];

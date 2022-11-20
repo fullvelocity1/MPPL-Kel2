@@ -16,7 +16,7 @@ class StationInfo extends StatefulWidget {
 }
 
 class _StationInfoState extends State<StationInfo> {
-  List<Station> stations = allStation;
+  List<Station> stations = [];
   RouteFinder finder = new RouteFinder();
 
   @override
@@ -28,8 +28,7 @@ class _StationInfoState extends State<StationInfo> {
 
   @override
   Widget build(BuildContext context) {
-    finder.stationsToGraph();
-    stations = finder.list_st;
+    getStationsList();
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
