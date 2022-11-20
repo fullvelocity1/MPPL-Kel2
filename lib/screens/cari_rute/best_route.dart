@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
 import 'package:krl_info/helper/routefinder.dart';
@@ -20,7 +21,7 @@ class BestRoute extends StatefulWidget {
 }
 
 class _BestRouteState extends State<BestRoute> {
-  RouteFinder finder = RouteFinder();
+  final RouteFinder finder = RouteFinder();
   String st_from = "";
   String st_to = "";
   List<Station> stRute = [];
@@ -191,7 +192,7 @@ class _BestRouteState extends State<BestRoute> {
                                       text: currentSt.stationName), // dinamis
                                   TextSpan(
                                       text:
-                                          '\nHarga tiket ke stasiun X :  ', // statis
+                                          '\nHarga tiket ke ${currentSt.stationName} :  ', // statis
                                       style: TextStyle(
                                           height: 1.5,
                                           fontSize: 12,
