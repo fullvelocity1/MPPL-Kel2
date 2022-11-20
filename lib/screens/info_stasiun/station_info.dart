@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
+import 'package:krl_info/helper/routefinder.dart';
 import 'package:krl_info/model/station_model.dart';
 import 'package:krl_info/screens/cari_rute/components/app_title_n_profile.dart';
 import 'package:krl_info/screens/cari_rute/find_route.dart';
@@ -16,6 +17,7 @@ class StationInfo extends StatefulWidget {
 
 class _StationInfoState extends State<StationInfo> {
   List<Station> stations = allStation;
+  RouteFinder finder = new RouteFinder();
 
   @override
   void didChangeDependencies() {
@@ -26,6 +28,8 @@ class _StationInfoState extends State<StationInfo> {
 
   @override
   Widget build(BuildContext context) {
+    finder.stationsToGraph();
+    stations = finder.list_st;
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(

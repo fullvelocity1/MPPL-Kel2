@@ -24,11 +24,6 @@ class Station {
         address = snapshot.data()['address'],
         id = snapshot.id,
         connections = snapshot.data()['connections'];
-
-  Station.fromSnapshotWithCons(snapshot)
-      : stationName = snapshot.data()['stationName'],
-        address = snapshot.data()['address'],
-        connections = snapshot.data()['connections'];
 }
 
 List<Station> allStation = [

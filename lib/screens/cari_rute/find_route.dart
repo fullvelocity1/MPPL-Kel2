@@ -5,7 +5,6 @@ import 'package:krl_info/helper/routefinder.dart';
 import 'package:krl_info/screens/cari_rute/best_route.dart';
 import 'package:krl_info/screens/info_stasiun/station_info.dart';
 import 'package:krl_info/model/station_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'components/app_title_n_profile.dart';
 
 class FindRoute extends StatefulWidget {
@@ -20,19 +19,16 @@ class _FindRouteState extends State<FindRoute> {
   String? stTujuan;
   List<Station> stations = [];
   List<String> stations_name = [];
+  RouteFinder finder = new RouteFinder();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-    getStationsList();
-  }
-
-  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    finder.stationsToGraph();
+    stations = finder.list_st;
+    stations_name = finder.stationsToStName();
     return Scaffold(
         body: SingleChildScrollView(
       child: Container(
@@ -64,9 +60,8 @@ class _FindRouteState extends State<FindRoute> {
                                           bottomLeft: Radius.circular(4)),
                                       side: BorderSide(color: primColor)))),
                           onPressed: () {
-                            var finder = RouteFinder();
-                            // finder.stationsToGraph();
                             finder.findRoute("kmpngbndn", "mnggr");
+                            // print(stations_name);
                           },
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -163,7 +158,7 @@ class _FindRouteState extends State<FindRoute> {
                     //   "Stasiun E",
                     //   "Stasiun F"
                     // ],
-                    items: stationsToStName(),
+                    items: stations_name,
                     dropdownDecoratorProps: DropDownDecoratorProps(
                       dropdownSearchDecoration: InputDecoration(
                         filled: true,
@@ -215,7 +210,7 @@ class _FindRouteState extends State<FindRoute> {
                     //   "Stasiun E",
                     //   "Stasiun F"
                     // ],
-                    items: stationsToStName(),
+                    items: stations_name,
                     dropdownDecoratorProps: DropDownDecoratorProps(
                       dropdownSearchDecoration: InputDecoration(
                         filled: true,
@@ -377,24 +372,5 @@ class _FindRouteState extends State<FindRoute> {
         ),
       ),
     ));
-  }
-
-  List<String> stationsToStName() {
-    List<String> res = [];
-    for (var i in stations) {
-      // print(i.stationName);
-      res.add(i.stationName);
-    }
-    return res;
-  }
-
-  Future getStationsList() async {
-    final ref = await FirebaseFirestore.instance.collection("stasiun").get();
-    List<Station> list_st =
-        List.from(ref.docs.map((doc) => Station.fromSnapshot(doc)));
-    // print(list_st);
-    setState(() {
-      stations = list_st;
-    });
   }
 }

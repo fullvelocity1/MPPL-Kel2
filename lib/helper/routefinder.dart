@@ -1,13 +1,53 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dijkstra/dijkstra.dart';
 import 'package:krl_info/model/station_model.dart';
 
 class RouteFinder {
   List<Station> list_st = [];
-  List<dynamic> stNames = [];
+  List<dynamic> st_ids = [];
   Map st_graph = {};
-  var harga = 3000;
+  Map<String?, dynamic> mapHarga = {};
+  List<Station> stDalamRute = [];
+  var hargaFinal = 0;
   num distance = 0;
+
+  List<String> stationsToStName() {
+    List<String> res = [];
+    for (var i in list_st) {
+      // print(i.stationName);
+      res.add(i.stationName);
+    }
+    return res;
+  }
+
+  Station searchStById(String idStasiun) {
+    for (var i in list_st) {
+      if (i.id == idStasiun) {
+        return i;
+      }
+    }
+    throw Exception('Station Not Foundnd');
+  }
+
+  String? searchIdByName(String namaStasiun) {
+    for (var i in list_st) {
+      if (i.stationName == namaStasiun) {
+        return i.id;
+      }
+    }
+    return "ID Not Found";
+  }
+
+  String searchNameById(String idStasiun) {
+    for (var i in list_st) {
+      if (i.id == idStasiun) {
+        return i.stationName;
+      }
+    }
+    return "ID Not Found";
+  }
 
   void stationsToGraph() async {
     // Fetch Stations Data
@@ -18,10 +58,10 @@ class RouteFinder {
 
     // List Fetch Data into Variables
     for (var i in list_st) {
-      stNames.add(i.id);
+      st_ids.add(i.id);
       st_graph[i.id] = i.connections;
     }
-    // print(stNames);
+    // print(st_ids);
     // print(st_graph);
   }
 
@@ -32,10 +72,18 @@ class RouteFinder {
 
     // Route Finder using Dijkstra
     stationsToGraph();
+    mapHarga.clear();
+    stDalamRute = [];
     var routefinder_output =
         Dijkstra.findPathFromGraph(st_graph, st_from, st_to);
+    for (var i in routefinder_output) {
+      Station stTemp = searchStById(i);
+      stDalamRute.add(stTemp);
+    }
     calculateDistance(routefinder_output);
     calculatePrice(distance);
+    print(stDalamRute);
+    print(mapHarga);
     return (routefinder_output);
     // print("routefinder debug report :");
     // print(routefinder_output);
@@ -44,10 +92,14 @@ class RouteFinder {
 
   void calculateDistance(rute) {
     // Distance Counter
+    distance = 0;
     for (var i = 0; i < rute.length - 1; i++) {
       var current_st = rute[i];
       var next_st = rute[i + 1];
       distance = distance + st_graph[current_st][next_st].round();
+      calculatePrice(distance);
+      String? namaNextSt = searchNameById(next_st);
+      mapHarga[namaNextSt] = hargaFinal;
     }
     // print(distance);
   }
@@ -55,16 +107,17 @@ class RouteFinder {
   void calculatePrice(distance) {
     // Price Counter
     // distance = 105000;
+    hargaFinal = 3000;
     if (distance <= 25000) {
-      harga = 3000;
+      hargaFinal = 3000;
     } else {
       var ongkosSetiapSepuluhKM = 1000;
       var new_dist = distance - 25000;
       double dist_multiplier = new_dist / 10000;
       int fix_dist = dist_multiplier.ceil();
-      harga = harga + fix_dist * ongkosSetiapSepuluhKM;
+      hargaFinal = hargaFinal + fix_dist * ongkosSetiapSepuluhKM;
     }
 
-    // print(harga);
+    // print(hargaFinal);
   }
 }
