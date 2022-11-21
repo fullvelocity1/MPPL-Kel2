@@ -315,6 +315,9 @@ class _BestRouteState extends State<BestRoute> {
                           fontWeight: FontWeight.w700,
                           fontSize: 14))),
             ),
+            const SizedBox(
+              height: 30,
+            ),
           ],
         ),
       ),

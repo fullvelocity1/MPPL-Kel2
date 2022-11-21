@@ -260,7 +260,8 @@ class _FindRouteState extends State<FindRoute> {
                                     side: const BorderSide(color: primColor)))),
                         onPressed: () {
                           if (_formKey.currentState != null &&
-                              _formKey.currentState!.validate()) {
+                              _formKey.currentState!.validate() &&
+                              stKeberangkatan != stTujuan) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
