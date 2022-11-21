@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:krl_info/constants.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:krl_info/screens/cari_rute/best_route.dart';
@@ -6,6 +8,7 @@ import 'package:krl_info/screens/info_stasiun/station_info.dart';
 import 'package:krl_info/model/station_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'components/app_title_n_profile.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 class FindRoute extends StatefulWidget {
   const FindRoute({super.key});
@@ -19,8 +22,28 @@ class _FindRouteState extends State<FindRoute> {
   String? stTujuan;
   List<Station> stations = [];
   List<String> stations_name = [];
+  DateFormat dateFormat = DateFormat();
+  DateFormat dayFormat = DateFormat();
+  DateFormat monthFormat = DateFormat();
+  DateFormat yearFormat = DateFormat();
+  DateFormat timeFormat = DateFormat();
+  String history_stFrom = "";
+  String history_stTo = "";
+  String history_date = "";
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting();
+    dateFormat = new DateFormat.yMMMEd('in');
+    dayFormat = new DateFormat.d('in');
+    monthFormat = new DateFormat.MMMM('in');
+    yearFormat = new DateFormat.y('in');
+    timeFormat = new DateFormat.Hms('in');
+    readHistory();
+  }
 
   @override
   void didChangeDependencies() {
@@ -31,6 +54,8 @@ class _FindRouteState extends State<FindRoute> {
 
   @override
   Widget build(BuildContext context) {
+    getStationsList();
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
@@ -268,6 +293,7 @@ class _FindRouteState extends State<FindRoute> {
                                   builder: (context) => BestRoute(
                                         stKeberangkatan: stKeberangkatan,
                                         stTujuan: stTujuan,
+                                        notifyParent: refresh,
                                       )),
                             );
                           }
@@ -304,8 +330,9 @@ class _FindRouteState extends State<FindRoute> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => BestRoute(
-                      stKeberangkatan: 'Stasiun Kebon Jeruk',
-                      stTujuan: 'Stasiun Bogor',
+                      stKeberangkatan: history_stFrom,
+                      stTujuan: history_stTo,
+                      notifyParent: refresh,
                     ),
                   ),
                 );
@@ -316,7 +343,7 @@ class _FindRouteState extends State<FindRoute> {
                   border: Border.all(color: primColor),
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                 ),
-                child: Row(children: const <Widget>[
+                child: Row(children: <Widget>[
                   Expanded(
                     flex: 1,
                     child: Padding(
@@ -333,9 +360,9 @@ class _FindRouteState extends State<FindRoute> {
                         child: Text.rich(
                           TextSpan(
                             children: <TextSpan>[
-                              TextSpan(text: 'Stasiun Aaaaaaaaa'), // dinamis
+                              TextSpan(text: history_stFrom), // dinamis
                               TextSpan(text: ' - '), // statis
-                              TextSpan(text: 'Stasiun Baaaaaaaa'), // dinamis
+                              TextSpan(text: history_stTo), // dinamis
                               TextSpan(
                                   text: '\ndiakses tanggal ', // statis
                                   style: TextStyle(
@@ -345,7 +372,7 @@ class _FindRouteState extends State<FindRoute> {
                                       fontWeight: FontWeight.w100,
                                       color: Color.fromRGBO(37, 37, 37, 0.7))),
                               TextSpan(
-                                  text: '1 Oktober 2022', // dinamis
+                                  text: history_date, // dinamis
                                   style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: 'Inter',
@@ -385,12 +412,46 @@ class _FindRouteState extends State<FindRoute> {
   }
 
   Future getStationsList() async {
-    final ref = await FirebaseFirestore.instance.collection("stasiun").get();
+    final ref =
+        await FirebaseFirestore.instance.collection("dummy-stasiun").get();
     List<Station> list_st =
         List.from(ref.docs.map((doc) => Station.fromSnapshot(doc)));
     // print(list_st);
     setState(() {
       stations = list_st;
+    });
+  }
+
+  refresh() {
+    setState(() {});
+  }
+
+  Future saveHistory() async {
+    final user = FirebaseAuth.instance.currentUser?.uid;
+    // print(user);
+    // print(stKeberangkatan);
+    // print(stTujuan);
+    String day = dayFormat.format(DateTime.now());
+    String month = monthFormat.format(DateTime.now());
+    String year = yearFormat.format(DateTime.now());
+    String date = day + ' ' + month + ' ' + year;
+    // print(date);
+    final ref = FirebaseFirestore.instance.collection('history').doc(user);
+
+    final query = ref.set({
+      'stKeberangkatan': stKeberangkatan,
+      'stTujuan': stTujuan,
+      'tanggalAkses': date,
+    });
+  }
+
+  Future readHistory() async {
+    final user = FirebaseAuth.instance.currentUser?.uid;
+    final ref = FirebaseFirestore.instance.collection('history').doc(user);
+    final data = ref.get().then((doc) {
+      history_stFrom = doc.data()!['stKeberangkatan'];
+      history_stTo = doc.data()!['stTujuan'];
+      history_date = doc.data()!['tanggalAkses'];
     });
   }
 }

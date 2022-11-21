@@ -1,9 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
+import 'package:krl_info/helper/routefinder.dart';
+import 'package:krl_info/model/station_model.dart';
 import 'package:krl_info/screens/cari_rute/find_route.dart';
 
 class BestRoute extends StatefulWidget {
-  const BestRoute({super.key, required this.stTujuan, this.stKeberangkatan});
+  final Function() notifyParent;
+  const BestRoute(
+      {super.key,
+      required this.stTujuan,
+      this.stKeberangkatan,
+      required this.notifyParent});
 
   final String? stKeberangkatan;
   final String? stTujuan;
@@ -13,10 +21,32 @@ class BestRoute extends StatefulWidget {
 }
 
 class _BestRouteState extends State<BestRoute> {
+  final RouteFinder finder = RouteFinder();
+  String st_from = "";
+  String st_to = "";
+  List<Station> stRute = [];
+  Map mapHarga = {};
+  var hargaFinal = 0;
+
   @override
   Widget build(BuildContext context) {
-    var index = 7;
+    finder.stationsToGraph();
+    st_from = finder.searchIdByName(widget.stKeberangkatan);
+    st_to = finder.searchIdByName(widget.stTujuan);
+    finder.findRoute(st_from, st_to);
+    stRute = finder.stDalamRuteSelainStartDanFinish;
+    mapHarga = finder.mapHarga;
+    hargaFinal = finder.hargaFinal;
+    autoRefresh();
+
+    // print(st_from);
+    // print(stRute);
+    // print(stRute.length);
+    // print(mapHarga);
+
+    var index = stRute.length;
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
         body: SingleChildScrollView(
       child: Container(
@@ -130,6 +160,7 @@ class _BestRouteState extends State<BestRoute> {
                     shrinkWrap: true,
                     itemCount: index,
                     itemBuilder: (context, index) {
+                      var currentSt = stRute[index];
                       return SizedBox(
                         height: 50,
                         child: Row(children: <Widget>[
@@ -157,10 +188,11 @@ class _BestRouteState extends State<BestRoute> {
                             child: Text.rich(
                               TextSpan(
                                 children: <TextSpan>[
-                                  TextSpan(text: 'Stasiun X'), // dinamis
+                                  TextSpan(
+                                      text: currentSt.stationName), // dinamis
                                   TextSpan(
                                       text:
-                                          '\nHarga tiket ke stasiun X :  ', // statis
+                                          '\nHarga tiket ke ${currentSt.stationName} :  ', // statis
                                       style: TextStyle(
                                           height: 1.5,
                                           fontSize: 12,
@@ -169,7 +201,8 @@ class _BestRouteState extends State<BestRoute> {
                                           color:
                                               Color.fromRGBO(37, 37, 37, 0.7))),
                                   TextSpan(
-                                    text: 'Berapa Duit', // dinamis
+                                    text: mapHarga[currentSt.stationName]
+                                        .toString(), // dinamis
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: 'Inter',
@@ -240,7 +273,7 @@ class _BestRouteState extends State<BestRoute> {
                                         color:
                                             Color.fromRGBO(37, 37, 37, 0.7))),
                                 TextSpan(
-                                  text: 'Berapa Duit', // dinamis
+                                  text: hargaFinal.toString(), // dinamis
                                   style: const TextStyle(
                                     fontSize: 12,
                                     fontFamily: 'Inter',
@@ -273,7 +306,7 @@ class _BestRouteState extends State<BestRoute> {
                             text:
                                 'Total biaya tiket yang perlu dikeluarkan : '),
                         TextSpan(
-                          text: 'Rp XXXXX',
+                          text: 'Rp ${hargaFinal}',
                           style: const TextStyle(color: primColor),
                         ),
                       ],
@@ -322,5 +355,11 @@ class _BestRouteState extends State<BestRoute> {
         ),
       ),
     ));
+  }
+
+  Future autoRefresh() async {
+    Future.delayed(Duration(milliseconds: 1), () {
+      setState(() {});
+    });
   }
 }
