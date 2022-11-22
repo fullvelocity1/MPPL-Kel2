@@ -74,7 +74,7 @@ class _BestRouteState extends State<BestRoute> {
             const SizedBox(height: 19),
             // Best Route information
             Container(
-              height: 250 + index * 50,
+              height: 253 + index * 50,
               padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 20),
               decoration: BoxDecoration(
                 border: Border.all(color: primColor),
@@ -192,7 +192,7 @@ class _BestRouteState extends State<BestRoute> {
                                       text: currentSt.stationName), // dinamis
                                   TextSpan(
                                       text:
-                                          '\nHarga tiket ke ${currentSt.stationName} :  ', // statis
+                                          '\nHarga ke ${currentSt.stationName} :  ', // statis
                                       style: TextStyle(
                                           height: 1.5,
                                           fontSize: 12,
@@ -336,11 +336,7 @@ class _BestRouteState extends State<BestRoute> {
                               borderRadius: BorderRadius.circular(4),
                               side: const BorderSide(color: primColor)))),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const FindRoute()),
-                    );
+                    Navigator.of(context).pop();
                   },
                   child: const Text("Kembali ke Homepage",
                       style: TextStyle(
