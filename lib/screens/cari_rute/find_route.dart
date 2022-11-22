@@ -30,6 +30,7 @@ class _FindRouteState extends State<FindRoute> {
   String history_stFrom = "";
   String history_stTo = "";
   String history_date = "";
+  String? user = "";
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -37,25 +38,19 @@ class _FindRouteState extends State<FindRoute> {
   void initState() {
     super.initState();
     initializeDateFormatting();
+
+    user = FirebaseAuth.instance.currentUser?.uid;
     dateFormat = new DateFormat.yMMMEd('in');
     dayFormat = new DateFormat.d('in');
     monthFormat = new DateFormat.MMMM('in');
     yearFormat = new DateFormat.y('in');
     timeFormat = new DateFormat.Hms('in');
     readHistory();
-  }
-
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
     getStationsList();
   }
 
   @override
   Widget build(BuildContext context) {
-    getStationsList();
-
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
@@ -287,6 +282,7 @@ class _FindRouteState extends State<FindRoute> {
                           if (_formKey.currentState != null &&
                               _formKey.currentState!.validate() &&
                               stKeberangkatan != stTujuan) {
+                            saveHistory();
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -296,6 +292,7 @@ class _FindRouteState extends State<FindRoute> {
                                         notifyParent: refresh,
                                       )),
                             );
+                            readHistory();
                           }
                         },
                         child: const Text("Cari Rute",
@@ -427,7 +424,6 @@ class _FindRouteState extends State<FindRoute> {
   }
 
   Future saveHistory() async {
-    final user = FirebaseAuth.instance.currentUser?.uid;
     // print(user);
     // print(stKeberangkatan);
     // print(stTujuan);
@@ -446,12 +442,16 @@ class _FindRouteState extends State<FindRoute> {
   }
 
   Future readHistory() async {
-    final user = FirebaseAuth.instance.currentUser?.uid;
     final ref = FirebaseFirestore.instance.collection('history').doc(user);
     final data = ref.get().then((doc) {
-      history_stFrom = doc.data()!['stKeberangkatan'];
-      history_stTo = doc.data()!['stTujuan'];
-      history_date = doc.data()!['tanggalAkses'];
+      setState(() {
+        history_stFrom = doc.data()!['stKeberangkatan'];
+        history_stTo = doc.data()!['stTujuan'];
+        history_date = doc.data()!['tanggalAkses'];
+      });
     });
+    print(history_stFrom);
+    print(history_stTo);
+    print(history_date);
   }
 }

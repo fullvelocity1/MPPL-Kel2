@@ -18,17 +18,15 @@ class StationInfo extends StatefulWidget {
 class _StationInfoState extends State<StationInfo> {
   List<Station> stations = [];
   RouteFinder finder = new RouteFinder();
-
   @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
+  void initState() {
+    // TODO: implement initState
+    super.initState();
     getStationsList();
   }
 
   @override
   Widget build(BuildContext context) {
-    getStationsList();
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -58,11 +56,7 @@ class _StationInfoState extends State<StationInfo> {
                                   bottomLeft: Radius.circular(4)),
                             ))),
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const FindRoute()),
-                          );
+                          Navigator.of(context).pop();
                         },
                         child: const Text("Cari Rute",
                             style: TextStyle(
@@ -223,10 +217,11 @@ class _StationInfoState extends State<StationInfo> {
   }
 
   Future getStationsList() async {
-    final ref = await FirebaseFirestore.instance.collection("stasiun").get();
+    final ref =
+        await FirebaseFirestore.instance.collection("dummy-stasiun").get();
     List<Station> list_st =
         List.from(ref.docs.map((doc) => Station.fromSnapshot(doc)));
-    print(list_st);
+    // print(list_st);
     setState(() {
       stations = list_st;
     });
