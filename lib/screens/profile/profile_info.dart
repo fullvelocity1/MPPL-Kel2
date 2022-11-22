@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:krl_info/constants.dart';
+import 'package:krl_info/screens/login/auth.dart';
 import 'package:krl_info/screens/login/components/text_field_form.dart';
 import 'package:krl_info/screens/login/first_screen.dart';
 import 'package:krl_info/screens/profile/profile_edit.dart';
@@ -316,11 +317,9 @@ class _ProfileInfoState extends State<ProfileInfo> {
                                     side: const BorderSide(color: primColor)))),
                     onPressed: () {
                       FirebaseAuth.instance.signOut();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const FirstScreen()),
-                      );
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                          builder: (BuildContext context) => Auth()));
                     },
                     child: const Text(
                       "Ya",

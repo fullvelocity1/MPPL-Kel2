@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:krl_info/screens/login/auth.dart';
 import 'package:krl_info/screens/login/first_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,17 +14,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(
-        const Duration(seconds: 3),
-        () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const FirstScreen()),
-            ));
   }
 
   @override
   Widget build(BuildContext context) {
-    setState(() {});
+    Future.delayed(
+        const Duration(seconds: 3),
+        () => Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (BuildContext context) => Auth())));
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:krl_info/screens/cari_rute/find_route.dart';
+import 'package:krl_info/screens/login/first_screen.dart';
 import 'login_screen.dart';
 
 class Auth extends StatelessWidget {
@@ -13,7 +14,7 @@ class Auth extends StatelessWidget {
             if (snapshot.hasData) {
               return FindRoute();
             } else {
-              return Login();
+              return FirstScreen();
             }
             ;
           }),

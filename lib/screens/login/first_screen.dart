@@ -104,7 +104,7 @@ class LoginButton extends StatelessWidget {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Auth()),
+              MaterialPageRoute(builder: (context) => Login()),
             );
           },
           child: const Text("Login Now",

@@ -187,10 +187,31 @@ class _LoginState extends State<Login> {
   }
 
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text.trim(),
-      password: passwordController.text.trim(),
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      var snackbar = SnackBar(
+        content: Text(e.message!),
+        backgroundColor: Colors.red,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      return;
+    }
+
+    var snackbar = SnackBar(
+      content: Text('Login Berhasil!'),
+      backgroundColor: Colors.green,
     );
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    Future.delayed(
+        const Duration(seconds: 1),
+        () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Auth()),
+            ));
   }
 
   void _togglePasswordView() {

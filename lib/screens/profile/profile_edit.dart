@@ -4,6 +4,8 @@ import 'package:krl_info/constants.dart';
 import 'package:krl_info/screens/login/first_screen.dart';
 import 'package:krl_info/screens/profile/profile_info.dart';
 
+import '../login/auth.dart';
+
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
 
@@ -388,11 +390,12 @@ class _EditProfileState extends State<EditProfile> {
                         content: Text('Delete Account Berhasil!'),
                         backgroundColor: Colors.green,
                       );
-                      Future.delayed(
-                          const Duration(seconds: 1),
-                          () => Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (c) => FirstScreen()),
-                              (route) => false));
+                      Future.delayed(const Duration(seconds: 1), () {
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (BuildContext context) => Auth()));
+                      });
                     },
                     child: const Text(
                       "Ya",
