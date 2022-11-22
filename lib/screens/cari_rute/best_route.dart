@@ -21,7 +21,6 @@ class BestRoute extends StatefulWidget {
 }
 
 class _BestRouteState extends State<BestRoute> {
-  final RouteFinder finder = RouteFinder();
   String st_from = "";
   String st_to = "";
   List<Station> stRute = [];
@@ -29,16 +28,14 @@ class _BestRouteState extends State<BestRoute> {
   var hargaFinal = 0;
 
   @override
-  Widget build(BuildContext context) {
-    finder.stationsToGraph();
-    st_from = finder.searchIdByName(widget.stKeberangkatan);
-    st_to = finder.searchIdByName(widget.stTujuan);
-    finder.findRoute(st_from, st_to);
-    stRute = finder.stDalamRuteSelainStartDanFinish;
-    mapHarga = finder.mapHarga;
-    hargaFinal = finder.hargaFinal;
-    autoRefresh();
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    setVariables();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     // print(st_from);
     // print(stRute);
     // print(stRute.length);
@@ -356,6 +353,19 @@ class _BestRouteState extends State<BestRoute> {
   Future autoRefresh() async {
     Future.delayed(Duration(milliseconds: 1), () {
       setState(() {});
+    });
+  }
+
+  Future setVariables() async {
+    final RouteFinder finder = RouteFinder();
+    await finder.stationsToGraph();
+    st_from = finder.searchIdByName(widget.stKeberangkatan);
+    st_to = finder.searchIdByName(widget.stTujuan);
+    finder.findRoute(st_from, st_to);
+    setState(() {
+      stRute = finder.stDalamRuteSelainStartDanFinish;
+      mapHarga = finder.mapHarga;
+      hargaFinal = finder.hargaFinal;
     });
   }
 }
