@@ -16,6 +16,7 @@ class StationInfo extends StatefulWidget {
 }
 
 class _StationInfoState extends State<StationInfo> {
+  List<Station> stFromDatabase = [];
   List<Station> stations = [];
   RouteFinder finder = new RouteFinder();
   @override
@@ -223,11 +224,12 @@ class _StationInfoState extends State<StationInfo> {
         List.from(ref.docs.map((doc) => Station.fromSnapshot(doc)));
     // print(list_st);
     setState(() {
-      stations = list_st;
+      stFromDatabase = list_st;
     });
   }
 
   void searchStation(String query) {
+    stations = stFromDatabase;
     final suggestions = stations.where((station) {
       final stationName = station.stationName.toLowerCase();
       final input = query.toLowerCase();
