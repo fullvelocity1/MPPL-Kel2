@@ -27,6 +27,7 @@ class _FindRouteState extends State<FindRoute> {
   DateFormat monthFormat = DateFormat();
   DateFormat yearFormat = DateFormat();
   DateFormat timeFormat = DateFormat();
+  String isHistoryAvailable = "no";
   String history_stFrom = "";
   String history_stTo = "";
   String history_date = "";
@@ -323,16 +324,18 @@ class _FindRouteState extends State<FindRoute> {
             // Recent search information
             InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BestRoute(
-                      stKeberangkatan: history_stFrom,
-                      stTujuan: history_stTo,
-                      notifyParent: refresh,
+                if (isHistoryAvailable == "yes") {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BestRoute(
+                        stKeberangkatan: history_stFrom,
+                        stTujuan: history_stTo,
+                        notifyParent: refresh,
+                      ),
                     ),
-                  ),
-                );
+                  );
+                }
               },
               child: Container(
                 height: 80,
@@ -443,13 +446,18 @@ class _FindRouteState extends State<FindRoute> {
     final ref = FirebaseFirestore.instance.collection('history').doc(user);
     final data = ref.get().then((doc) {
       setState(() {
-        history_stFrom = doc.data()!['stKeberangkatan'];
-        history_stTo = doc.data()!['stTujuan'];
-        history_date = doc.data()!['tanggalAkses'];
+        if (doc.exists) {
+          isHistoryAvailable = "yes";
+        } else {
+          isHistoryAvailable = "no";
+        }
+        history_stFrom = doc.data()?['stKeberangkatan'];
+        history_stTo = doc.data()?['stTujuan'];
+        history_date = doc.data()?['tanggalAkses'];
       });
     });
-    print(history_stFrom);
-    print(history_stTo);
-    print(history_date);
+    // print(history_stFrom);
+    // print(history_stTo);
+    // print(history_date);
   }
 }
