@@ -274,13 +274,8 @@ class _EditProfileState extends State<EditProfile> {
                         backgroundColor: Colors.green,
                       );
                       ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                      Future.delayed(
-                          const Duration(seconds: 1),
-                          () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const ProfileInfo()),
-                              ));
+                      Future.delayed(const Duration(seconds: 1),
+                          () => Navigator.of(context).pop());
                     },
                     child: const Text("Save",
                         style: TextStyle(
