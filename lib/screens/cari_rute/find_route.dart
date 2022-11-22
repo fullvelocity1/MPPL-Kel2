@@ -419,9 +419,7 @@ class _FindRouteState extends State<FindRoute> {
     });
   }
 
-  refresh() {
-    setState(() {});
-  }
+  refresh() {}
 
   Future saveHistory() async {
     // print(user);
