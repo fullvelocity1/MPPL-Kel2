@@ -225,6 +225,7 @@ class _StationInfoState extends State<StationInfo> {
     // print(list_st);
     setState(() {
       stFromDatabase = list_st;
+      stations = list_st;
     });
   }
 
