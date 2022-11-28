@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:krl_info/constants.dart';
@@ -21,6 +22,7 @@ class _EditProfileState extends State<EditProfile> {
 
   TextEditingController _controllerName = TextEditingController();
   TextEditingController _controllerEmail = TextEditingController();
+  TextEditingController _controllerPassword = TextEditingController();
 
   @override
   void initState() {
@@ -150,49 +152,51 @@ class _EditProfileState extends State<EditProfile> {
                 height: 17,
               ),
               // Text Field Password Regist
-              // Column(
-              //   children: <Widget>[
-              //     // Title Text Field
-              //     const Align(
-              //       alignment: Alignment.topLeft,
-              //       child: Text(
-              //         "Password",
-              //         style: TextStyle(
-              //           fontSize: 14,
-              //           fontWeight: FontWeight.w500,
-              //         ),
-              //       ),
-              //     ),
-              //     const SizedBox(
-              //       height: 13,
-              //     ),
-              //     // Text Field
-              //     TextField(
-              //       obscureText: isHiddenPassword,
-              //       decoration: InputDecoration(
-              //         suffixIcon: InkWell(
-              //             onTap: _togglePasswordView,
-              //             child: const Icon(Icons.visibility)),
-              //         contentPadding:
-              //             const EdgeInsets.only(left: 23, top: 15, bottom: 15),
-              //         hintText: "Masukkan password",
-              //         hintStyle: const TextStyle(fontSize: 16),
-              //         border: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(10.0),
-              //           borderSide: const BorderSide(
-              //             width: 0,
-              //             style: BorderStyle.none,
-              //           ),
-              //         ),
-              //         filled: true,
-              //         fillColor: const Color.fromRGBO(37, 37, 37, 0.04),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // const SizedBox(
-              //   height: 17,
-              // ),
+              Column(
+                children: <Widget>[
+                  // Title Text Field
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      "Current Password",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 13,
+                  ),
+                  // Text Field
+                  TextField(
+                    controller: _controllerPassword,
+                    obscureText: isHiddenPassword,
+                    decoration: InputDecoration(
+                      errorText: _errorText,
+                      suffixIcon: InkWell(
+                          onTap: _togglePasswordView,
+                          child: const Icon(Icons.visibility)),
+                      contentPadding:
+                          const EdgeInsets.only(left: 23, top: 15, bottom: 15),
+                      hintText: "Masukkan password untuk edit profil",
+                      hintStyle: const TextStyle(fontSize: 16),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: const BorderSide(
+                          width: 0,
+                          style: BorderStyle.none,
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: const Color.fromRGBO(37, 37, 37, 0.04),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 17,
+              ),
               // // Text Field Password Confirmation Regist
               // Column(
               //   children: <Widget>[
@@ -253,29 +257,9 @@ class _EditProfileState extends State<EditProfile> {
                                     borderRadius: BorderRadius.circular(4),
                                     side: const BorderSide(color: primColor)))),
                     onPressed: () {
-                      // user!.updateEmail(_controllerEmail.text.trim());
-                      try {
-                        FirebaseAuth.instance.currentUser!
-                            .updateEmail(_controllerEmail.text.trim());
-                        FirebaseAuth.instance.currentUser!
-                            .updateDisplayName(_controllerName.text.trim());
-                      } on FirebaseAuthException catch (e) {
-                        // print(e);
-
-                        var snackbar = SnackBar(
-                          content: Text(e.message!),
-                          backgroundColor: Colors.red,
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                        return;
+                      if (_controllerPassword.value.text.isNotEmpty) {
+                        editProf();
                       }
-                      var snackbar = SnackBar(
-                        content: Text('Edit Profile Berhasil!'),
-                        backgroundColor: Colors.green,
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                      Future.delayed(const Duration(seconds: 1),
-                          () => Navigator.of(context).pop());
                     },
                     child: const Text("Save",
                         style: TextStyle(
@@ -447,5 +431,88 @@ class _EditProfileState extends State<EditProfile> {
     setState(() {
       isHiddenPasswordConf = !isHiddenPasswordConf;
     });
+  }
+
+  String? get _errorText {
+    // at any time, we can get the text from _controller.value.text
+    final text = _controllerPassword.value.text;
+    // Note: you can do your own custom validation here
+    // Move this logic this outside the widget for more testable code
+    if (text.isEmpty) {
+      return 'Password tidak bisa kosong';
+    }
+    if (text.length < 6) {
+      return 'Password terlalu pendek';
+    }
+    // return null if the text is valid
+    return null;
+  }
+
+  Future<void> editProf() async {
+    var user = FirebaseAuth.instance.currentUser!;
+    try {
+      var password = _controllerPassword.text.trim();
+      var nextEmail = _controllerEmail.text.trim();
+      var currentEmail = FirebaseAuth.instance.currentUser!.email;
+      // Check if old email and password is correct
+      var check = await reauthenticateWithCredential(currentEmail!, password);
+      if (check == 0) {
+        var snackbar = SnackBar(
+          content: Text('Password Salah!'),
+          backgroundColor: Colors.red,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        return;
+      }
+      await FirebaseAuth.instance.currentUser!.updateEmail(nextEmail);
+      await FirebaseAuth.instance.currentUser!
+          .updateDisplayName(_controllerName.text.trim());
+
+      var reauth = await reauthenticateWithCredential(nextEmail, password);
+    } on FirebaseAuthException catch (e) {
+      // print(e);
+
+      var snackbar = SnackBar(
+        content: Text(e.message!),
+        backgroundColor: Colors.red,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      return;
+    }
+    var snackbar = SnackBar(
+      content: Text('Edit Profile Berhasil!'),
+      backgroundColor: Colors.green,
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackbar);
+
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.of(context).pop();
+      Navigator.of(context).pop();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ProfileInfo()),
+      );
+    });
+  }
+
+  Future<int> reauthenticateWithCredential(
+      String email, String password) async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      final credential = EmailAuthProvider.credential(
+        email: email,
+        password: password,
+      );
+      await user!.reauthenticateWithCredential(credential);
+      return 1;
+    } on Exception catch (e) {
+      // Handle exceptions
+      var snackbar = SnackBar(
+        content: Text(e.toString()),
+        backgroundColor: Colors.red,
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      return 0;
+    }
   }
 }

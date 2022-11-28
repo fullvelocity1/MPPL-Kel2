@@ -203,6 +203,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
                         MaterialPageRoute(
                             builder: (context) => const EditProfile()),
                       );
+                      setState(() {});
                     },
                     child: const Text(
                       "Edit Profile",

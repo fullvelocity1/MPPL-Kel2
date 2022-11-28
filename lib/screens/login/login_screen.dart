@@ -206,12 +206,10 @@ class _LoginState extends State<Login> {
       backgroundColor: Colors.green,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
-    Future.delayed(
-        const Duration(seconds: 1),
-        () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Auth()),
-            ));
+    Future.delayed(const Duration(seconds: 1), () {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (BuildContext context) => Auth()));
+    });
   }
 
   void _togglePasswordView() {
