@@ -143,43 +143,43 @@ class _ProfileInfoState extends State<ProfileInfo> {
               const SizedBox(
                 height: 17,
               ),
-              // Text Field Password Profile
-              const Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Password",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 13,
-              ),
-              Container(
-                height: 48,
-                width: size,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                    color: Color.fromRGBO(37, 37, 37, 0.04)),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Text(
-                      "*********",
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 43,
-              ),
+              // // Text Field Password Profile
+              // const Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Text(
+              //     "Password",
+              //     style: TextStyle(
+              //       fontSize: 14,
+              //       fontWeight: FontWeight.w500,
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 13,
+              // ),
+              // Container(
+              //   height: 48,
+              //   width: size,
+              //   decoration: const BoxDecoration(
+              //       borderRadius: BorderRadius.all(Radius.circular(4)),
+              //       color: Color.fromRGBO(37, 37, 37, 0.04)),
+              //   child: Align(
+              //     alignment: Alignment.centerLeft,
+              //     child: Padding(
+              //       padding: const EdgeInsets.symmetric(horizontal: 24),
+              //       child: Text(
+              //         "*********",
+              //         style: const TextStyle(
+              //           fontSize: 16,
+              //           fontWeight: FontWeight.w400,
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 43,
+              // ),
               // Edit Profile Button
               Align(
                 alignment: Alignment.centerRight,
