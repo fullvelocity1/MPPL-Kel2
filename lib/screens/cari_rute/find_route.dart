@@ -309,93 +309,9 @@ class _FindRouteState extends State<FindRoute> {
             const SizedBox(
               height: 43,
             ),
-            // Recent Search Title
-            const Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Pencarian terbaru!",
-                style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontFamily: 'Inter',
-                    fontSize: 16),
-              ),
+            Container(
+              child: _buildChild(),
             ),
-            const SizedBox(height: 13),
-            // Recent search information
-            InkWell(
-              onTap: () {
-                if (isHistoryAvailable == "yes") {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BestRoute(
-                        stKeberangkatan: history_stFrom,
-                        stTujuan: history_stTo,
-                        notifyParent: refresh,
-                      ),
-                    ),
-                  );
-                }
-              },
-              child: Container(
-                height: 80,
-                decoration: BoxDecoration(
-                  border: Border.all(color: primColor),
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                ),
-                child: Row(children: <Widget>[
-                  Expanded(
-                    flex: 1,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Image(
-                          height: 32,
-                          image: AssetImage('assets/images/carbon_train.png')),
-                    ),
-                  ),
-                  Expanded(
-                      flex: 5,
-                      child: Padding(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Text.rich(
-                          TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(text: history_stFrom), // dinamis
-                              TextSpan(text: ' - '), // statis
-                              TextSpan(text: history_stTo), // dinamis
-                              TextSpan(
-                                  text: '\ndiakses tanggal ', // statis
-                                  style: TextStyle(
-                                      height: 2,
-                                      fontSize: 12,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w100,
-                                      color: Color.fromRGBO(37, 37, 37, 0.7))),
-                              TextSpan(
-                                  text: history_date, // dinamis
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w100,
-                                      color: Color.fromRGBO(37, 37, 37, 0.7))),
-                            ],
-                          ),
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700),
-                        ),
-                      )),
-                  Expanded(
-                    flex: 1,
-                    child: Image(
-                        height: 24,
-                        image: AssetImage('assets/images/arrow.png')),
-                  ),
-                ]),
-              ),
-            )
           ],
         ),
       ),
@@ -459,5 +375,159 @@ class _FindRouteState extends State<FindRoute> {
     // print(history_stFrom);
     // print(history_stTo);
     // print(history_date);
+  }
+
+  Widget _buildChild() {
+    if (isHistoryAvailable == "yes") {
+      return Column(
+        children: <Widget>[
+          // Recent Search Title
+          const Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              "Pencarian terbaru!",
+              style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Inter',
+                  fontSize: 16),
+            ),
+          ),
+          const SizedBox(height: 13),
+          // Recent search information
+          InkWell(
+            onTap: () {
+              if (isHistoryAvailable == "yes") {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BestRoute(
+                      stKeberangkatan: history_stFrom,
+                      stTujuan: history_stTo,
+                      notifyParent: refresh,
+                    ),
+                  ),
+                );
+              }
+            },
+            child: Container(
+              height: 80,
+              decoration: BoxDecoration(
+                border: Border.all(color: primColor),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+              ),
+              child: Row(children: <Widget>[
+                const Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 15),
+                    child: Image(
+                        height: 32,
+                        image: AssetImage('assets/images/carbon_train.png')),
+                  ),
+                ),
+                Expanded(
+                    flex: 5,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 20),
+                      child: Text.rich(
+                        TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(text: history_stFrom), // dinamis
+                            const TextSpan(text: ' - '), // statis
+                            TextSpan(text: history_stTo), // dinamis
+                            const TextSpan(
+                                text: '\ndiakses tanggal ', // statis
+                                style: TextStyle(
+                                    height: 2,
+                                    fontSize: 12,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w100,
+                                    color: Color.fromRGBO(37, 37, 37, 0.7))),
+                            TextSpan(
+                                text: history_date, // dinamis
+                                style: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w100,
+                                    color: Color.fromRGBO(37, 37, 37, 0.7))),
+                          ],
+                        ),
+                        textAlign: TextAlign.left,
+                        style: const TextStyle(
+                            fontSize: 16.0,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700),
+                      ),
+                    )),
+                const Expanded(
+                  flex: 1,
+                  child: Image(
+                      height: 24, image: AssetImage('assets/images/arrow.png')),
+                ),
+              ]),
+            ),
+          )
+        ],
+      );
+    }
+    return Column(
+      children: <Widget>[
+        // Recent Search Title
+        const Align(
+          alignment: Alignment.topLeft,
+          child: Text(
+            "Pencarian terbaru!",
+            style: TextStyle(
+                fontWeight: FontWeight.w700, fontFamily: 'Inter', fontSize: 16),
+          ),
+        ),
+        const SizedBox(height: 13),
+        // Recent search information
+        InkWell(
+          onTap: () {
+            if (isHistoryAvailable == "yes") {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BestRoute(
+                    stKeberangkatan: history_stFrom,
+                    stTujuan: history_stTo,
+                    notifyParent: refresh,
+                  ),
+                ),
+              );
+            }
+          },
+          child: Container(
+            height: 80,
+            decoration: BoxDecoration(
+              border: Border.all(color: primColor),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
+            ),
+            child: Row(children: const <Widget>[
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 15),
+                  child: Image(
+                      height: 32,
+                      image: AssetImage('assets/images/carbon_train.png')),
+                ),
+              ),
+              Expanded(
+                flex: 5,
+                child: Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: Text("Tidak ada riwayat pencarian",
+                        style: TextStyle(
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14))),
+              ),
+            ]),
+          ),
+        )
+      ],
+    );
   }
 }

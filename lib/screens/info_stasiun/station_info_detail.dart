@@ -73,27 +73,13 @@ class StationInfoDetail extends StatelessWidget {
                         ),
                       ),
                       const TextSpan(
-                        text: 'Harga tiket : \n',
-                        style: TextStyle(
-                          height: 3,
-                          fontSize: 14,
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'Rp 4000\n',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                      const TextSpan(
                         text: 'Jadwal keberangkatan : \n',
                         style: TextStyle(
                           height: 3,
                           fontSize: 14,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: '• 08:00 WIB\n',
                         style: TextStyle(
                           height: 1.5,
@@ -101,7 +87,7 @@ class StationInfoDetail extends StatelessWidget {
                           fontWeight: FontWeight.w300,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: '• 09:00 WIB\n',
                         style: TextStyle(
                           height: 1.5,
@@ -109,7 +95,7 @@ class StationInfoDetail extends StatelessWidget {
                           fontWeight: FontWeight.w300,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: '• 10:00 WIB\n',
                         style: TextStyle(
                           height: 1.5,
@@ -117,7 +103,7 @@ class StationInfoDetail extends StatelessWidget {
                           fontWeight: FontWeight.w300,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: '• 11:00 WIB\n',
                         style: TextStyle(
                           height: 1.5,
@@ -132,7 +118,7 @@ class StationInfoDetail extends StatelessWidget {
                           fontSize: 14,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: '• Toilet\n',
                         style: TextStyle(
                           height: 1.5,
@@ -140,7 +126,7 @@ class StationInfoDetail extends StatelessWidget {
                           fontWeight: FontWeight.w300,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: '• Tempat tunggu\n',
                         style: TextStyle(
                           height: 1.5,
@@ -148,7 +134,7 @@ class StationInfoDetail extends StatelessWidget {
                           fontWeight: FontWeight.w300,
                         ),
                       ),
-                      TextSpan(
+                      const TextSpan(
                         text: '• Kantin\n',
                         style: TextStyle(
                           height: 1.5,
@@ -159,7 +145,7 @@ class StationInfoDetail extends StatelessWidget {
                     ],
                   ),
                   textAlign: TextAlign.left,
-                  style: TextStyle(
+                  style: const TextStyle(
                       height: 2,
                       fontSize: 14.0,
                       fontFamily: 'Inter',
