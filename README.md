@@ -1,5 +1,5 @@
-# krl_info
-# MPPL-Kel2
+# KRL Info
+## MPPL-Kel2
 
 # Latar Belakang
 - Kereta Rel Listrik (KRL) memiliki rute yang cukup kompleks.
