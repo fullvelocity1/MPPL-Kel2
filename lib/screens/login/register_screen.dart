@@ -82,6 +82,7 @@ class _RegisterState extends State<Register> {
                     controller: passwordController,
                     obscureText: isHiddenPassword,
                     decoration: InputDecoration(
+                      errorText: _passErrorText,
                       suffixIcon: InkWell(
                           onTap: _togglePasswordView,
                           child: const Icon(Icons.visibility)),
@@ -127,6 +128,7 @@ class _RegisterState extends State<Register> {
                     controller: passwordConfController,
                     obscureText: isHiddenPasswordConf,
                     decoration: InputDecoration(
+                      errorText: _confErrorText,
                       suffixIcon: InkWell(
                           onTap: _togglePasswordConfView,
                           child: const Icon(Icons.visibility)),
@@ -166,7 +168,19 @@ class _RegisterState extends State<Register> {
                                     borderRadius: BorderRadius.circular(4),
                                     side: const BorderSide(color: primColor)))),
                     onPressed: () {
-                      signUp();
+                      if (nameController.text.trim().isNotEmpty &&
+                          emailController.text.trim().isNotEmpty &&
+                          passwordController.text.trim().length >= 5 &&
+                          passwordConfController.text.trim() ==
+                              passwordController.text.trim()) {
+                        signUp();
+                      } else {
+                        var snackbar = SnackBar(
+                          content: Text('Formulir belum terisi dengan benar!'),
+                          backgroundColor: Colors.red,
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                      }
                     },
                     child: const Text("Register Account",
                         style: TextStyle(
@@ -218,9 +232,34 @@ class _RegisterState extends State<Register> {
     );
   }
 
+  String? get _passErrorText {
+    // Note: you can do your own custom validation here
+    // Move this logic this outside the widget for more testable code
+    if (passwordController.text.trim().isEmpty) {
+      return 'Password tidak boleh kosong';
+    } else if (passwordController.text.trim().length < 6) {
+      return 'Password terlalu pendek';
+    }
+    return null;
+  }
+
+  String? get _confErrorText {
+    // Note: you can do your own custom validation here
+    // Move this logic this outside the widget for more testable code
+    if (passwordConfController.text.trim() != passwordController.text.trim()) {
+      return 'Password Konfirmasi berbeda dengan Password';
+    }
+    return null;
+  }
+
   Future signUp() async {
     // print(emailController.text.trim());
     // print(passwordController.text.trim());
+
+    if (passwordController.text.trim() != passwordConfController.text.trim()) {
+      return;
+    }
+
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
