@@ -1,17 +1,9 @@
 # krl_info
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
 # MPPL-Kel2
+
+# Latar Belakang
+- Kereta Rel Listrik (KRL) memiliki rute yang cukup kompleks.
+- Banyak pengguna pertama kali KRL merasa kesulitan ketika mereka ingin transit ke stasiun lain. 
+- Terdapat aplikasi yang menawarkan solusi terkait jadwal dan rute.
+- Aplikasi yang tersedia masih terdapat kekurangan bahkan tidak beroperasi lagi.
+- Kelompok 2 membuat aplikasi expert system berbasis mobile app untuk membantu masyarakat dalam mencari dan memilih rute KRL.
